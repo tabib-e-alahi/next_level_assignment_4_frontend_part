@@ -76,28 +76,18 @@ export function RegisterForm() {
                         password: data.password,
                   }
 
-                  // toast("Registration form submitted", {
-                  //       description: (
-                  //             <pre className="mt-2 w-[320px] overflow-x-auto rounded-md bg-code p-4 text-code-foreground">
-                  //                   <code>{JSON.stringify(payload, null, 2)}</code>
-                  //             </pre>
-                  //       ),
-                  //       position: "bottom-right",
-                  //       classNames: {
-                  //             content: "flex flex-col gap-2",
-                  //       },
-                  //       style: {
-                  //             "--border-radius": "calc(var(--radius) + 4px)",
-                  //       } as React.CSSProperties,
-                  // })
-
                   // later replace with real API call
                   // await registerUser(payload)
                   const res = await registerUser(payload);
                   console.log(res);
+                  if(res?.success) {
+                        toast.success("Registration successful! Please login to continue.")
+                        form.reset();
+                  } else {
+                        toast.error(res?.message || "Registration failed. Please try again.")
+                  }
             } catch(error) {
-                  // toast.error("Registration failed. Please try again.")
-                  console.log(error);
+                  toast.error("Registration failed. Please try again.")
             }
       }
 
