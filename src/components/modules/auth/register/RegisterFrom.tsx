@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
-
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import {
       Card,
@@ -56,6 +56,7 @@ const formSchema = z.object({
 // type RegisterFormValues = z.infer<typeof formSchema>
 
 export function RegisterForm() {
+      const router = useRouter()
       const form = useForm<z.infer<typeof formSchema>>({
             resolver: zodResolver(formSchema),
             defaultValues: {
@@ -80,13 +81,23 @@ export function RegisterForm() {
                   // await registerUser(payload)
                   const res = await registerUser(payload);
                   console.log(res);
-                  if(res?.success) {
+                  if (res?.success) {
                         toast.success("Registration successful! Please login to continue.")
                         form.reset();
+                        
+                        const role = res?.data?.role
+
+                        if (role === "CUSTOMER") {
+                              router.push("/")
+                        }
+
+                        if (role === "PROVIDER") {
+                              router.push("/provider/dashboard")
+                        }
                   } else {
                         toast.error(res?.message || "Registration failed. Please try again.")
                   }
-            } catch(error) {
+            } catch (error) {
                   toast.error("Registration failed. Please try again.")
             }
       }
