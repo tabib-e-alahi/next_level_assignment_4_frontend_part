@@ -84,16 +84,12 @@ export function RegisterForm() {
                   if (res?.success) {
                         toast.success("Registration successful! Please login to continue.")
                         form.reset();
-                        
+
                         const role = res?.data?.role
 
-                        if (role === "CUSTOMER") {
-                              router.push("/")
-                        }
 
-                        if (role === "PROVIDER") {
-                              router.push("/provider/dashboard")
-                        }
+                        router.push("/login")
+
                   } else {
                         toast.error(res?.message || "Registration failed. Please try again.")
                   }
