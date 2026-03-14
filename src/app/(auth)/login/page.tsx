@@ -1,7 +1,8 @@
 export default function page() {
   return (
     <div>
-      <h1>page</h1>
+      <h1>Login</h1>
+      <p>This is the login page.</p>
     </div>
   );
 }
