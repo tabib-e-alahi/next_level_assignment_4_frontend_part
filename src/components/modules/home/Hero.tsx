@@ -67,7 +67,7 @@ const slides = [
 
 export default function Hero() {
       return (
-            <section className="relative overflow-hidden bg-gradient-to-b from-orange-50 via-white to-white">
+            <section className="relative overflow-hidden">
                   <div className="mx-auto  px-4 py-10 md:px-24 md:py-14 lg:py-16 ">
                       <Carousel
           opts={{ loop: true }}
@@ -78,7 +78,7 @@ export default function Hero() {
 
             {slides.map((slide) => (
               <CarouselItem key={slide.id}>
-                <div className="grid lg:grid-cols-2 items-center gap-10 bg-white rounded-2xl shadow-lg p-6 md:max-w-7xl mx-auto">
+                <div className="grid lg:grid-cols-2 items-center gap-10 bg-white rounded-2xl  p-6 md:max-w-7xl mx-auto border-2 border-red-500">
 
                   {/* TEXT */}
                   <div>

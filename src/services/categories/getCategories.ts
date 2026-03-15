@@ -1,9 +1,9 @@
 import { Category, GetCategoriesResponse } from "@/types/category"
 
-export const getCategories = async (): Promise<Category[]> => {
+export const getCategories = async (limit?: number | undefined): Promise<Category[]> => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/public/categories`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/public/categories?limit=${limit}`,
       {
         next: { revalidate: 10 },
       }

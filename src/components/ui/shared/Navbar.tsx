@@ -34,8 +34,8 @@ export default function Navbar() {
       ]
 
       return (
-            <header className="sticky top-0 z-50 w-full border-b bg-white">
-                  <div className="container mx-auto flex h-12 md:h-24 items-center justify-between px-6 md:px-24">
+            <header className="sticky top-0 z-50 w-full border-b bg-white/80  backdrop-blur-md">
+                  <div className="container mx-auto flex h-12 md:h-24 items-center justify-between px-6 md:px-24 ">
 
                         <Link href="/">
                               <Image
