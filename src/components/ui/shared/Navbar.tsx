@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Menu, ShoppingCart } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -11,9 +11,21 @@ import {
       SheetTrigger,
 } from "@/components/ui/sheet"
 import Image from "next/image"
+import { getUser } from "@/services/auth"
 
 export default function Navbar() {
       const [open, setOpen] = useState(false)
+      const [user, setUser] = useState(null)
+
+      useEffect(() => {
+            const getCurrentUser = async () => {
+                  const userData = await getUser();
+                  setUser(userData);
+            }
+            getCurrentUser()
+      }, [])
+
+
 
       const navLinks = [
             { name: "Home", href: "/" },
@@ -49,22 +61,41 @@ export default function Navbar() {
                         </nav>
 
                         {/* Right Section */}
-                        <div className="hidden md:flex items-center gap-3">
+                        {
+                              user ?
+                                    <div className="hidden md:flex items-center gap-3">
 
-                              <Link href="/cart">
-                                    <Button variant="ghost" size="icon">
-                                          <ShoppingCart size={20} />
-                                    </Button>
-                              </Link>
+                                          <Link href="/cart">
+                                                <Button variant="ghost" size="icon">
+                                                      <ShoppingCart size={20} />
+                                                </Button>
+                                          </Link>
 
-                              <Link href="/login">
-                                    <Button variant="outline">Login</Button>
-                              </Link>
+                                          <Link href="/profile">
+                                                <Button variant="outline">profile</Button>
+                                          </Link>
 
-                              <Link href="/register">
-                                    <Button>Register</Button>
-                              </Link>
-                        </div>
+                                          <Link href="/logout">
+                                                <Button>logout</Button>
+                                          </Link>
+                                    </div> :
+                                    <div className="hidden md:flex items-center gap-3">
+
+                                          <Link href="/cart">
+                                                <Button variant="ghost" size="icon">
+                                                      <ShoppingCart size={20} />
+                                                </Button>
+                                          </Link>
+
+                                          <Link href="/login">
+                                                <Button variant="outline">Login</Button>
+                                          </Link>
+
+                                          <Link href="/register">
+                                                <Button>Register</Button>
+                                          </Link>
+                                    </div>
+                        }
 
                         {/* Mobile Menu */}
                         <Sheet open={open} onOpenChange={setOpen}>
@@ -91,9 +122,7 @@ export default function Navbar() {
                                           <Link href="/cart" onClick={() => setOpen(false)}>
                                                 Cart
                                           </Link>
-
                                           <div className="flex flex-col gap-2 pt-4">
-
                                                 <Link href="/login">
                                                       <Button variant="outline" className="w-full">
                                                             Login
@@ -107,6 +136,8 @@ export default function Navbar() {
                                                 </Link>
 
                                           </div>
+
+
                                     </div>
                               </SheetContent>
                         </Sheet>

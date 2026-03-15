@@ -78,7 +78,7 @@ export default function Hero() {
 
             {slides.map((slide) => (
               <CarouselItem key={slide.id}>
-                <div className="grid lg:grid-cols-2 items-center gap-10 bg-white rounded-2xl shadow-lg p-6">
+                <div className="grid lg:grid-cols-2 items-center gap-10 bg-white rounded-2xl shadow-lg p-6 md:max-w-7xl mx-auto">
 
                   {/* TEXT */}
                   <div>
