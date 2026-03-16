@@ -5,8 +5,8 @@ import { ArrowUpRight, Dot } from "lucide-react"
 import { getProviders } from "@/services/categories/getProviders"
 import { Bricolage_Grotesque, Open_Sans } from "next/font/google"
 
-const bricolage = Bricolage_Grotesque()
-const open_Sans = Open_Sans()
+export const bricolage = Bricolage_Grotesque()
+export const open_Sans = Open_Sans()
 
 
 export default async function TopProvidersSection() {

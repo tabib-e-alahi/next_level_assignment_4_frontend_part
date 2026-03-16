@@ -1,5 +1,6 @@
 import { Category, GetCategoriesResponse } from "@/types/category"
 
+
 export const getCategories = async (limit?: number | undefined): Promise<Category[]> => {
   try {
     const res = await fetch(
