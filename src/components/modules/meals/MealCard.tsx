@@ -1,27 +1,50 @@
 // src/components/meals/meal-card.tsx
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowUpRight, Heart, ShoppingBag } from "lucide-react"
+import { ArrowUpRight, Heart, ShoppingBag, Star } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+
+type Review = {
+  rating: number
+}
+
+type ReviewsCount = {
+  reviews: number
+}
 
 type Meal = {
   id: string
   title: string
   description: string
-  image: string
+  imageURL: string
   price: number
-  cuisine: string
-  dietary: string
+  cuisine?: string
+  dietary_preferences: string[]
+  isAvailable: boolean
+  reviews: Review[]
+  _count: ReviewsCount
 }
 
 export default function MealCard({ meal }: { meal: Meal }) {
+  const reviewsCount = meal._count?.reviews || 0
+
+  const avgRating =
+    meal.reviews?.length > 0
+      ? (
+        meal.reviews.reduce((sum, r) => sum + r.rating, 0) /
+        meal.reviews.length
+      ).toFixed(1)
+      : 0
+
   return (
-    <article className="group overflow-hidden rounded-[28px] border border-border/60 bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(0,0,0,0.08)]">
-      <Link href={`/meals/${meal.id}`} className="block">
-        <div className="relative h-56 overflow-hidden bg-muted">
+    <article className={`group overflow-hidden rounded-[12px] bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(0,0,0,0.08)] ${!meal.isAvailable ? "opacity-30" : ""}`}>
+
+      {/* IMAGE */}
+      <Link  href={`/meals/${meal.id}`} className="block">
+        <div className="relative h-60 overflow-hidden bg-muted">
           <Image
-            src={meal.image}
+            src={meal.imageURL}
             alt={meal.title}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
@@ -29,33 +52,69 @@ export default function MealCard({ meal }: { meal: Meal }) {
 
           <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/5 to-transparent" />
 
-          <div className="absolute left-4 top-4 flex gap-2">
-            <span className="rounded-full bg-background/90 px-3 py-1 text-xs font-medium text-foreground backdrop-blur">
-              {meal.cuisine}
-            </span>
-            <span className="rounded-full bg-primary/90 px-3 py-1 text-xs font-medium text-primary-foreground">
-              {meal.dietary}
-            </span>
-          </div>
+          {/* cuisine */}
+          {meal.cuisine && (
+            <div className="absolute left-4 top-4">
+              <span className="rounded-full bg-background/90 px-3 py-1 text-xs font-medium text-foreground backdrop-blur">
+                {meal.cuisine}
+              </span>
+            </div>
+          )}
 
+          {/* wishlist */}
           <button className="absolute right-4 top-4 inline-flex size-9 items-center justify-center rounded-full bg-background/90 text-foreground shadow-sm backdrop-blur transition hover:bg-background">
             <Heart className="size-4" />
           </button>
+
+          {/* rating badge */}
+          {avgRating && (
+            <div className="absolute bottom-4 left-4 flex items-center gap-1 rounded-full bg-background/90 px-3 py-1 text-xs font-medium backdrop-blur">
+              <Star className="size-3 fill-primary text-primary" />
+              {avgRating}
+              <span className="text-muted-foreground">
+                ({reviewsCount})
+              </span>
+            </div>
+          )}
         </div>
       </Link>
 
-      <div className="flex min-h-[220px] flex-col p-5">
+      {/* CONTENT */}
+      <div className="flex  flex-col p-5">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
+            {/* title */}
             <Link href={`/meals/${meal.id}`}>
               <h3 className="line-clamp-1 text-xl font-semibold tracking-tight text-foreground transition group-hover:text-primary">
                 {meal.title}
               </h3>
             </Link>
 
-            <p className="mt-3 line-clamp-2 text-sm leading-6 text-muted-foreground">
+            {/* rating row */}
+            {(
+              <div className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
+                <Star className="size-4 fill-primary text-primary" />
+                <span className="font-medium text-foreground">
+                  {avgRating}
+                </span>
+                <span>({reviewsCount} reviews)</span>
+              </div>
+            )}
+
+            {/* description */}
+            <p className="mt-3 line-clamp-2 text-sm leading-6 ">
               {meal.description}
             </p>
+            {/* dietary hashtags */}
+            {meal.dietary_preferences?.length > 0 && (
+              <div className="my-2 flex flex-wrap gap-2 text-sm text-primary">
+                {meal.dietary_preferences.slice(0, 3).map((tag) => (
+                  <span key={tag} className="font-bold">
+                    #{tag.toLowerCase().replace(/\s+/g, "")}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
 
           <Link
@@ -66,6 +125,7 @@ export default function MealCard({ meal }: { meal: Meal }) {
           </Link>
         </div>
 
+        {/* PRICE + CTA */}
         <div className="mt-auto pt-5">
           <div className="mb-4 flex items-center justify-between">
             <div>

@@ -3,8 +3,8 @@ import TopCategorySection from "@/components/modules/home/TopCategorySection";
 import TopProvidersSection from "@/components/modules/home/TopProviderSection";
 import WhyPlatera from "@/components/modules/home/WhyPlatera";
 
-export default async function HomePage() {
-  
+export default function HomePage() {
+ 
   return (
     <div>
       <Hero></Hero>

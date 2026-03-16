@@ -1,5 +1,4 @@
 export type Category = {
-  [x: string]: string | StaticImport
   id: string
   name: string
   slug: string | null
