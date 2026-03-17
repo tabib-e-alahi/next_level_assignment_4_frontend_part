@@ -47,7 +47,7 @@ export default async function TopProvidersSection() {
               href={`/providers/${provider.id}`}
               className="group block"
             >
-              <article className="flex h-fit flex-col overflow-hidden  bg-card ">
+              <article className="flex h-fit flex-col overflow-hidden ">
                 <div className="relative h-40 shrink-0 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(0,0,0,0.08)] ">
                   <Image
                     src={provider.businessLogo}

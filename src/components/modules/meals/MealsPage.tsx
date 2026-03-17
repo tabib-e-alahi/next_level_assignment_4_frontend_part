@@ -32,18 +32,22 @@ type ReviewsCount = {
   reviews: number;
 }
 
+type CategoryType = {
+  name: string
+}
+
 type Meal = {
-  id: string;
-  title: string;
-  description: string;
+  id: string
+  title: string
+  description: string
   imageURL: string
   price: number
-  cuisine?: string
+  category: CategoryType
   dietary_preferences: string[]
   isAvailable: boolean
-  reviews: Review[] | []
+  reviews: Review[]
   _count: ReviewsCount
-};
+}
 
 type Props = {
   initialMeals: Meal[];

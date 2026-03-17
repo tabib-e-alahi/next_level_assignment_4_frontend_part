@@ -12,6 +12,9 @@ type Review = {
 type ReviewsCount = {
   reviews: number
 }
+type CategoryType = {
+  name: string
+}
 
 type Meal = {
   id: string
@@ -19,7 +22,7 @@ type Meal = {
   description: string
   imageURL: string
   price: number
-  cuisine?: string
+  category: CategoryType
   dietary_preferences: string[]
   isAvailable: boolean
   reviews: Review[]
@@ -53,10 +56,10 @@ export default function MealCard({ meal }: { meal: Meal }) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/5 to-transparent" />
 
           {/* cuisine */}
-          {meal.cuisine && (
+          {meal.category.name && (
             <div className="absolute left-4 top-4">
-              <span className="rounded-full bg-background/90 px-3 py-1 text-xs font-medium text-foreground backdrop-blur">
-                {meal.cuisine}
+              <span className="rounded-full bg-background/90 px-3 py-1 text-xs font-medium text-foreground backdrop-blur capitalize">
+                {meal.category.name.toLowerCase()}
               </span>
             </div>
           )}
