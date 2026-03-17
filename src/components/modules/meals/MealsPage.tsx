@@ -21,15 +21,15 @@ import MealCard from "@/components/modules/meals/MealCard";
 import { mealService } from "@/services/meals/meals.service";
 
 type Category = {
-  id: string;
-  name: string;
+  id: string
+  name: string
 };
 
 type Review = {
-  rating: number;
+  rating: number
 };
 type ReviewsCount = {
-  reviews: number;
+  reviews: number
 }
 
 type CategoryType = {
@@ -50,9 +50,9 @@ type Meal = {
 }
 
 type Props = {
-  initialMeals: Meal[];
-  categories: Category[];
-  dietaryPreferences: string[];
+  initialMeals: Meal[]
+  categories: Category[]
+  dietaryPreferences: string[]
 };
 
 export default function MealsPageClient({

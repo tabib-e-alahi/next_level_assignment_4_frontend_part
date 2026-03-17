@@ -1,9 +1,9 @@
-// src/components/meals/meal-card.tsx
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight, Heart, ShoppingBag, Star } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 type Review = {
   rating: number
@@ -35,7 +35,7 @@ export default function MealCard({ meal }: { meal: Meal }) {
   const avgRating =
     meal.reviews?.length > 0
       ? (
-        meal.reviews.reduce((sum, r) => sum + r.rating, 0) /
+        meal.reviews.reduce((sum, rev) => sum + rev.rating, 0) /
         meal.reviews.length
       ).toFixed(1)
       : 0
@@ -44,7 +44,7 @@ export default function MealCard({ meal }: { meal: Meal }) {
     <article className={`group overflow-hidden rounded-[12px] bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(0,0,0,0.08)] ${!meal.isAvailable ? "opacity-30" : ""}`}>
 
       {/* IMAGE */}
-      <Link  href={`/meals/${meal.id}`} className="block">
+      <Link href={`/meals/${meal.id}`} className="block">
         <div className="relative h-60 overflow-hidden bg-muted">
           <Image
             src={meal.imageURL}
@@ -88,9 +88,16 @@ export default function MealCard({ meal }: { meal: Meal }) {
           <div className="min-w-0">
             {/* title */}
             <Link href={`/meals/${meal.id}`}>
-              <h3 className="line-clamp-1 text-xl font-semibold tracking-tight text-foreground transition group-hover:text-primary">
-                {meal.title}
-              </h3>
+              <Tooltip key={"top"}>
+                <TooltipTrigger asChild>
+                  <h3 className="line-clamp-1 text-xl font-semibold tracking-tight text-foreground transition group-hover:text-primary">
+                    {meal.title}
+                  </h3>
+                </TooltipTrigger>
+                <TooltipContent side={"top"}>
+                  <p className="text-xl">{meal.title}</p>
+                </TooltipContent>
+              </Tooltip>
             </Link>
 
             {/* rating row */}
