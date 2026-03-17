@@ -1,148 +1,150 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { useEffect, useState } from "react"
 import { Menu, ShoppingCart } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import {
-      Sheet,
-      SheetContent,
-      SheetTrigger,
-} from "@/components/ui/sheet"
-import Image from "next/image"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { getUser } from "@/services/auth"
 
+import "./nav-footer.css"
+
 export default function Navbar() {
-      const [open, setOpen] = useState(false)
-      const [user, setUser] = useState(null)
+  const [open, setOpen] = useState(false)
+  const [user, setUser] = useState(null)
 
-      useEffect(() => {
-            const getCurrentUser = async () => {
-                  const userData = await getUser();
-                  setUser(userData);
-            }
-            getCurrentUser()
-      }, [])
+  useEffect(() => {
+    const getCurrentUser = async () => {
+      const userData = await getUser()
+      setUser(userData)
+    }
+    getCurrentUser()
+  }, [])
 
+  const navLinks = [
+    { name: "Home",   href: "/" },
+    { name: "Meals",  href: "/meals" },
+    { name: "Orders", href: "/orders" },
+  ]
 
+  return (
+    <header className="nav-root">
+      <div className="nav-inner">
 
-      const navLinks = [
-            { name: "Home", href: "/" },
-            { name: "Meals", href: "/meals" },
-            { name: "Orders", href: "/orders" },
-      ]
+        {/* LOGO */}
+        <Link href="/" className="nav-logo">
+          <Image
+            src="/platera_logo.png"
+            alt="Platera Logo"
+            width={120}
+            height={60}
+            className="h-[66px] w-[99px]"
+          />
+        </Link>
 
-      return (
-            <header className="sticky top-0 z-50 w-full border-b bg-white/80  backdrop-blur-md">
-                  <div className="container mx-auto flex h-12 md:h-24 items-center justify-between px-6 md:px-24 ">
+        {/* DESKTOP NAV LINKS */}
+        <nav className="nav-links">
+          {navLinks.map((link) => (
+            <Link key={link.name} href={link.href} className="nav-link">
+              {link.name}
+            </Link>
+          ))}
+        </nav>
 
-                        <Link href="/">
-                              <Image
-                                    src="/platera_logo.png"
-                                    alt="Platera Logo"
-                                    width={120}
-                                    height={60}
-                                    className="w-15 h-7.5 md:w-28 md:h-16"
-                              />
-                        </Link>
+        {/* DESKTOP RIGHT ACTIONS */}
+        {user ? (
+          <div className="nav-actions">
+            <Link href="/cart" className="nav-cart" aria-label="Cart">
+              <ShoppingCart size={16} />
+            </Link>
+            <Link href="/profile" className="nav-btn-outline">
+              Profile
+            </Link>
+            <Link href="/logout" className="nav-btn-solid">
+              Logout
+            </Link>
+          </div>
+        ) : (
+          <div className="nav-actions">
+            <Link href="/cart" className="nav-cart" aria-label="Cart">
+              <ShoppingCart size={16} />
+            </Link>
+            <Link href="/login" className="nav-btn-outline">
+              Login
+            </Link>
+            <Link href="/register" className="nav-btn-solid">
+              Register
+            </Link>
+          </div>
+        )}
 
-                        {/* Desktop Navigation */}
-                        <nav className="hidden md:flex items-center gap-6">
-                              {navLinks.map((link) => (
-                                    <Link
-                                          key={link.name}
-                                          href={link.href}
-                                          className="text-sm font-medium hover:text-primary transition"
-                                    >
-                                          {link.name}
-                                    </Link>
-                              ))}
-                        </nav>
+        {/* MOBILE HAMBURGER */}
+        <Sheet open={open} onOpenChange={setOpen}>
+          <SheetTrigger asChild>
+            <Button className="nav-mobile-trigger" aria-label="Open menu">
+              <Menu size={18} />
+            </Button>
+          </SheetTrigger>
 
-                        {/* Right Section */}
-                        {
-                              user ?
-                                    <div className="hidden md:flex items-center gap-3">
+          <SheetContent side="left" className="nav-sheet w-[280px] p-0">
+            <div className="nav-sheet-inner">
 
-                                          <Link href="/cart">
-                                                <Button variant="ghost" size="icon">
-                                                      <ShoppingCart size={20} />
-                                                </Button>
-                                          </Link>
+              {/* sheet logo */}
+              <Link href="/" className="nav-sheet-logo" onClick={() => setOpen(false)}>
+                <div className="nav-sheet-logo-mark">P</div>
+                <span className="nav-sheet-brand">Platera</span>
+              </Link>
 
-                                          <Link href="/profile">
-                                                <Button variant="outline">profile</Button>
-                                          </Link>
+              {/* nav links */}
+              <nav className="nav-sheet-links">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className="nav-sheet-link"
+                    onClick={() => setOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+                <Link href="/cart" className="nav-sheet-cart" onClick={() => setOpen(false)}>
+                  <ShoppingCart size={13} />
+                  Cart
+                </Link>
+              </nav>
 
-                                          <Link href="/logout">
-                                                <Button>logout</Button>
-                                          </Link>
-                                    </div> :
-                                    <div className="hidden md:flex items-center gap-3">
+              <hr className="nav-sheet-divider" />
 
-                                          <Link href="/cart">
-                                                <Button variant="ghost" size="icon">
-                                                      <ShoppingCart size={20} />
-                                                </Button>
-                                          </Link>
+              {/* auth buttons */}
+              <div className="nav-sheet-actions">
+                {user ? (
+                  <>
+                    <Link href="/profile" onClick={() => setOpen(false)}>
+                      <Button className="nav-sheet-btn-outline">Profile</Button>
+                    </Link>
+                    <Link href="/logout" onClick={() => setOpen(false)}>
+                      <Button className="nav-sheet-btn-solid">Logout</Button>
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link href="/login" onClick={() => setOpen(false)}>
+                      <Button className="nav-sheet-btn-outline">Login</Button>
+                    </Link>
+                    <Link href="/register" onClick={() => setOpen(false)}>
+                      <Button className="nav-sheet-btn-solid">Register</Button>
+                    </Link>
+                  </>
+                )}
+              </div>
 
-                                          <Link href="/login">
-                                                <Button variant="outline">Login</Button>
-                                          </Link>
+            </div>
+          </SheetContent>
+        </Sheet>
 
-                                          <Link href="/register">
-                                                <Button>Register</Button>
-                                          </Link>
-                                    </div>
-                        }
-
-                        {/* Mobile Menu */}
-                        <Sheet open={open} onOpenChange={setOpen}>
-                              <SheetTrigger asChild className="md:hidden">
-                                    <Button variant="ghost" size="icon">
-                                          <Menu size={24} />
-                                    </Button>
-                              </SheetTrigger>
-
-                              <SheetContent side="left" className="w-65">
-                                    <div className="mt-6 flex flex-col gap-4">
-
-                                          {navLinks.map((link) => (
-                                                <Link
-                                                      key={link.name}
-                                                      href={link.href}
-                                                      onClick={() => setOpen(false)}
-                                                      className="text-base font-medium"
-                                                >
-                                                      {link.name}
-                                                </Link>
-                                          ))}
-
-                                          <Link href="/cart" onClick={() => setOpen(false)}>
-                                                Cart
-                                          </Link>
-                                          <div className="flex flex-col gap-2 pt-4">
-                                                <Link href="/login">
-                                                      <Button variant="outline" className="w-full">
-                                                            Login
-                                                      </Button>
-                                                </Link>
-
-                                                <Link href="/register">
-                                                      <Button className="w-full">
-                                                            Register
-                                                      </Button>
-                                                </Link>
-
-                                          </div>
-
-
-                                    </div>
-                              </SheetContent>
-                        </Sheet>
-
-                  </div>
-            </header>
-      )
+      </div>
+    </header>
+  )
 }

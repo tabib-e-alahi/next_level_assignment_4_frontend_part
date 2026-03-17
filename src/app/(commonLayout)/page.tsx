@@ -8,7 +8,7 @@ export default function HomePage() {
   return (
     <div>
       <Hero></Hero>
-      <div className="max-w-7xl mx-auto">
+      <div className="">
         <TopCategorySection />
         <TopProvidersSection></TopProvidersSection>
         <WhyPlatera></WhyPlatera>

@@ -64,4 +64,16 @@ export const mealService = {
       };
     }
   },
+  getMealById: async function (id: string) {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/public/meals/${id}`);
+
+      const data = await res.json();
+
+      return { data: data.data, error: null };
+    } catch (err) {
+      return { data: null, error: { message: "Something Went Wrong" } };
+    }
+  }
+
 };

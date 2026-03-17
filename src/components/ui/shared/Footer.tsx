@@ -3,81 +3,93 @@
 import Link from "next/link"
 import { Facebook, Instagram, Mail, MapPin, Phone, Twitter } from "lucide-react"
 
+import "./nav-footer.css"
+
 const footerLinks = {
   company: [
-    { label: "About", href: "/about" },
-    { label: "Meals", href: "/meals" },
+    { label: "About",     href: "/about"     },
+    { label: "Meals",     href: "/meals"     },
     { label: "Providers", href: "/providers" },
-    { label: "Contact", href: "/contact" },
+    { label: "Contact",   href: "/contact"   },
   ],
   account: [
-    { label: "Login", href: "/login" },
+    { label: "Login",    href: "/login"    },
     { label: "Register", href: "/register" },
-    { label: "Cart", href: "/cart" },
-    { label: "Orders", href: "/orders" },
+    { label: "Cart",     href: "/cart"     },
+    { label: "Orders",   href: "/orders"   },
   ],
   legal: [
-    { label: "Privacy Policy", href: "/privacy-policy" },
-    { label: "Terms & Conditions", href: "/terms" },
-    { label: "Refund Policy", href: "/refund-policy" },
+    { label: "Privacy Policy",    href: "/privacy-policy" },
+    { label: "Terms & Conditions", href: "/terms"          },
+    { label: "Refund Policy",     href: "/refund-policy"  },
   ],
   social: [
-    { label: "Facebook", href: "https://facebook.com", icon: Facebook },
+    { label: "Facebook",  href: "https://facebook.com",  icon: Facebook  },
     { label: "Instagram", href: "https://instagram.com", icon: Instagram },
-    { label: "Twitter", href: "https://twitter.com", icon: Twitter },
+    { label: "Twitter",   href: "https://twitter.com",   icon: Twitter   },
   ],
 }
 
 export default function Footer() {
   return (
-    <footer className="border-t bg-background">
-      <div className="container mx-auto px-4">
-        <div className="grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-5">
-          <div className="lg:col-span-2">
-            <Link href="/" className="inline-flex items-center gap-2">
-              <div className="flex size-10 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-                <span className="text-lg font-bold">F</span>
-              </div>
+    <footer className="footer-root">
+      <div className="footer-inner">
+
+        {/* MAIN GRID */}
+        <div className="footer-grid">
+
+          {/* BRAND COLUMN */}
+          <div>
+            <Link href="/" className="footer-brand-logo">
+              <div className="footer-logo-mark">P</div>
               <div>
-                <h2 className="text-lg font-semibold tracking-tight">Platera</h2>
-                <p className="text-sm text-muted-foreground">
-                  Fresh meals, trusted providers, and a smooth ordering experience.
+                <p className="footer-brand-name">Platera</p>
+                <p className="footer-brand-tagline">
+                  Fresh meals, trusted providers.
                 </p>
               </div>
             </Link>
 
-            <p className="mt-5 max-w-md text-sm leading-6 text-muted-foreground">
+            <p className="footer-brand-desc">
               Platera connects customers with quality meal providers through a clean,
               reliable, and fast ordering experience built for everyday convenience.
             </p>
 
-            <div className="mt-6 space-y-3 text-sm text-muted-foreground">
-              <div className="flex items-center gap-3">
-                <Mail className="size-4 text-primary" />
+            <div className="footer-contact">
+              <div className="footer-contact-row">
+                <div className="footer-contact-icon">
+                  <Mail size={13} />
+                </div>
                 <span>support@foodhub.com</span>
               </div>
-              <div className="flex items-center gap-3">
-                <Phone className="size-4 text-primary" />
+              <div className="footer-contact-row">
+                <div className="footer-contact-icon">
+                  <Phone size={13} />
+                </div>
                 <span>+880 1234-567890</span>
               </div>
-              <div className="flex items-center gap-3">
-                <MapPin className="size-4 text-primary" />
+              <div className="footer-contact-row">
+                <div className="footer-contact-icon">
+                  <MapPin size={13} />
+                </div>
                 <span>Dhaka, Bangladesh</span>
               </div>
             </div>
           </div>
 
+          {/* LINK COLUMNS */}
           <FooterLinkColumn title="Company" links={footerLinks.company} />
           <FooterLinkColumn title="Account" links={footerLinks.account} />
-          <FooterLinkColumn title="Legal" links={footerLinks.legal} />
+          <FooterLinkColumn title="Legal"   links={footerLinks.legal}   />
         </div>
 
-        <div className="flex flex-col gap-4 border-t py-6 md:flex-row md:items-center md:justify-between">
-          <p className="text-sm text-muted-foreground">
+        {/* BOTTOM BAR */}
+        <div className="footer-bottom">
+          <p className="footer-copy">
             © {new Date().getFullYear()} FoodHub. All rights reserved.
           </p>
 
-          <div className="flex items-center gap-2">
+          <div className="footer-socials">
             {footerLinks.social.map((item) => {
               const Icon = item.icon
               return (
@@ -87,40 +99,34 @@ export default function Footer() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={item.label}
-                  className="inline-flex size-9 items-center justify-center rounded-full border bg-background text-muted-foreground transition-colors hover:border-primary/30 hover:text-primary"
+                  className="footer-social-btn"
                 >
-                  <Icon className="size-4" />
+                  <Icon size={14} />
                 </Link>
               )
             })}
           </div>
         </div>
+
       </div>
     </footer>
   )
 }
 
+/* ── COLUMN COMPONENT ── */
 type FooterLinkColumnProps = {
   title: string
-  links: {
-    label: string
-    href: string
-  }[]
+  links: { label: string; href: string }[]
 }
 
 function FooterLinkColumn({ title, links }: FooterLinkColumnProps) {
   return (
     <div>
-      <h3 className="mb-4 text-sm font-semibold tracking-wide text-foreground">
-        {title}
-      </h3>
-      <ul className="space-y-3">
+      <h3 className="footer-col-title">{title}</h3>
+      <ul className="footer-col-links">
         {links.map((link) => (
           <li key={link.label}>
-            <Link
-              href={link.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
+            <Link href={link.href} className="footer-col-link">
               {link.label}
             </Link>
           </li>
