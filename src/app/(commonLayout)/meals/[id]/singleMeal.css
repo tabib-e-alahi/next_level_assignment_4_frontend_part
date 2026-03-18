@@ -221,6 +221,7 @@
   font-weight: 700;
   color: var(--parch);
   margin: 0 0 .9rem;
+  width: 300px;
 }
 
 .about-body {

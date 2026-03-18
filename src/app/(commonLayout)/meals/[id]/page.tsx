@@ -16,6 +16,7 @@ import { mealService } from "@/services/meals/meals.service"
 import { Meal, Review } from "@/types/mealsParams"
 
 import "./singleMeal.css"
+import AddToCartButton from "@/components/ui/shared/AddToCartButton"
 
 export async function generateStaticParams() {
   const { data } = await mealService.getMeals()
@@ -120,7 +121,7 @@ export default async function SingleMealpage({
                   About this meal
                 </div>
                 <h2 className="about-title">
-                  Crafted with care,<br />served with soul.
+                  {meal?.description}
                 </h2>
               </CardHeader>
               <CardContent>
@@ -198,10 +199,9 @@ export default async function SingleMealpage({
                   {meal?.price}
                 </div>
 
-                <Button className="cta-btn">
-                  <ShoppingBag size={15} className="mr-2 flex-shrink-0" />
-                  Add to Cart
-                </Button>
+                <div>
+                  <AddToCartButton mealId={meal.id} ></AddToCartButton>
+                </div>
 
                 <Separator className="my-5 bg-white/[0.08]" />
 

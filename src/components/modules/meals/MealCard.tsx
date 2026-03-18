@@ -5,6 +5,7 @@ import { ArrowUpRight, Heart, ShoppingBag, Star } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { Meal } from "@/types/mealsParams"
+import AddToCartButton from "@/components/ui/shared/AddToCartButton"
 
 export default function MealCard({ meal }: { meal: Meal }) {
   const reviewsCount = meal._count?.reviews || 0
@@ -49,12 +50,12 @@ export default function MealCard({ meal }: { meal: Meal }) {
               <Star size={10} style={{ color: "#e8a030", fill: "#e8a030" }} />
               <span>{avgRating}</span>
               <span className="card-rating-count">({reviewsCount})</span>
-            </div> : 
-            <div className="card-rating">
-              <Star size={10} style={{ color: "#e8a030", fill: "#e8a030" }} />
-              <span>(Not Rated Yet)</span>
-              {/* <span className="card-rating-count">({reviewsCount})</span> */}
-            </div>
+            </div> :
+              <div className="card-rating">
+                <Star size={10} style={{ color: "#e8a030", fill: "#e8a030" }} />
+                <span>(Not Rated Yet)</span>
+                {/* <span className="card-rating-count">({reviewsCount})</span> */}
+              </div>
           }
 
 
@@ -112,11 +113,9 @@ export default function MealCard({ meal }: { meal: Meal }) {
               {meal.price}
             </p>
           </div>
-
-          <Button type="button" className="card-cta">
-            <ShoppingBag size={13} />
-            Add to Cart
-          </Button>
+          <div>
+            <AddToCartButton mealId={meal.id} ></AddToCartButton>
+          </div>
         </div>
       </div>
     </article>

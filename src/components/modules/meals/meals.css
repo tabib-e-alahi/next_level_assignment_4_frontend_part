@@ -520,7 +520,7 @@
   margin-top: auto;
   padding-top: 1rem;
   border-top: 1px solid var(--border-dim);
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex; align-items: self-end; justify-content: space-between;
   gap: .75rem;
   margin-top: 1rem;
 }
@@ -541,7 +541,7 @@
   font-size: .85rem; font-weight: 400; opacity: .5; margin-right: 1px;
 }
 
-.card-cta {
+.cta-btn {
   display: inline-flex; align-items: center; gap: .4rem;
   background: linear-gradient(135deg, var(--ember), #e06520) !important;
   color: #fff !important;
@@ -555,7 +555,7 @@
   white-space: nowrap;
 }
 
-.card-cta:hover {
+.cta-btn:hover {
   box-shadow: 0 8px 24px rgba(200,80,10,.5) !important;
   transform: translateY(-1px) !important;
 }
