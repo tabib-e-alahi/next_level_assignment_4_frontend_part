@@ -1,0 +1,301 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+/* ══════════════════════════════════════
+   LOGIN PAGE WRAPPER
+══════════════════════════════════════ */
+.login-page {
+  min-height: 100vh;
+  background: #0a0807;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.2rem, 4vw, 2rem);
+  font-family: 'DM Sans', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* grid texture */
+.login-page::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(245,240,232,.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,240,232,.022) 1px, transparent 1px);
+  background-size: 52px 52px;
+  pointer-events: none; z-index: 0;
+}
+
+/* ember orb top-right */
+.login-page::after {
+  content: '';
+  position: absolute; top: -160px; right: -140px;
+  width: 560px; height: 560px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,80,10,.11) 0%, transparent 65%);
+  pointer-events: none; z-index: 0;
+}
+
+/* gold orb bottom-left */
+.login-page-orb2 {
+  position: absolute; bottom: -120px; left: -100px;
+  width: 420px; height: 420px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,160,48,.07) 0%, transparent 65%);
+  pointer-events: none; z-index: 0;
+}
+
+/* ══════════════════════════════════════
+   CARD
+══════════════════════════════════════ */
+.login-card {
+  position: relative; z-index: 1;
+  width: 100%;
+  max-width: 440px;
+  background: #1e1a17 !important;
+  border: 1px solid rgba(200,80,10,.22) !important;
+  border-radius: 22px !important;
+  box-shadow:
+    0 0 0 1px rgba(200,80,10,.06),
+    0 24px 60px rgba(0,0,0,.55),
+    0 8px 20px rgba(0,0,0,.35) !important;
+  overflow: hidden;
+}
+
+/* top ember accent bar */
+.login-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent 0%, #c8500a 35%, #e8a030 65%, transparent 100%);
+}
+
+/* inner glow */
+.login-card::after {
+  content: '';
+  position: absolute; top: -60px; right: -60px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,160,48,.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── CARD HEADER ── */
+.login-card-header {
+  padding: 2.2rem 2.2rem 1rem !important;
+  background: #1e1a17 !important;
+}
+
+.login-eyebrow {
+  display: inline-flex; align-items: center; gap: .45rem;
+  font-family: 'DM Mono', monospace;
+  font-size: .58rem; letter-spacing: .2em; text-transform: uppercase;
+  color: #e8a030;
+  border: 1px solid rgba(232,160,48,.22);
+  background: rgba(232,160,48,.07);
+  border-radius: 100px;
+  padding: .22rem .75rem .22rem .5rem;
+  margin-bottom: 1.1rem;
+}
+
+.login-eyebrow-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: #c8500a; box-shadow: 0 0 6px #c8500a;
+  animation: ldot 2.2s infinite;
+}
+
+@keyframes ldot {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%     { opacity:.35; transform:scale(.75); }
+}
+
+.login-title {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 1.9rem !important;
+  font-weight: 900 !important;
+  letter-spacing: -.02em !important;
+  color: #f5f0e8 !important;
+  line-height: 1.1 !important;
+  margin: 0 0 .4rem !important;
+}
+
+.login-title em {
+  font-style: italic;
+  color: #f5d080;
+}
+
+.login-desc {
+  font-size: .82rem !important;
+  color: rgba(245,240,232,.38) !important;
+  line-height: 1.6 !important;
+  margin: 0 !important;
+}
+
+.login-desc a {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 700;
+  color: #e8a030 !important;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.login-desc a:hover { color: #f5d080 !important; }
+
+/* ── CARD CONTENT ── */
+.login-card-content {
+  padding: .5rem 2.2rem 1rem !important;
+  background: #1e1a17 !important;
+}
+
+/* field group spacing */
+.login-field-group {
+  display: flex; flex-direction: column; gap: 1.2rem;
+}
+
+/* individual field */
+.login-field {}
+
+.login-field-label {
+  display: block;
+  font-family: 'DM Mono', monospace !important;
+  font-size: .6rem !important; letter-spacing: .16em !important; text-transform: uppercase !important;
+  color: rgba(245,240,232,.4) !important;
+  margin-bottom: .5rem !important;
+}
+
+.login-input {
+  background: #2e2825 !important;
+  border: 1px solid rgba(245,240,232,.1) !important;
+  border-radius: 10px !important;
+  color: #f5f0e8 !important;
+  font-size: .88rem !important;
+  height: 44px !important;
+  padding: 0 1rem !important;
+  width: 100%;
+  transition: border-color .2s, box-shadow .2s !important;
+  font-family: 'DM Sans', sans-serif !important;
+}
+
+.login-input::placeholder {
+  color: rgba(245,240,232,.2) !important;
+  font-size: .84rem !important;
+}
+
+.login-input:focus {
+  border-color: rgba(200,80,10,.5) !important;
+  box-shadow: 0 0 0 3px rgba(200,80,10,.12) !important;
+  outline: none !important;
+}
+
+/* invalid state */
+[data-invalid="true"] .login-input {
+  border-color: rgba(220,50,50,.45) !important;
+}
+
+.login-field-error {
+  font-family: 'DM Mono', monospace;
+  font-size: .6rem; letter-spacing: .06em;
+  color: #e05050 !important;
+  margin-top: .4rem !important;
+}
+
+/* ── CARD FOOTER ── */
+.login-card-footer {
+  padding: .5rem 2.2rem 2.2rem !important;
+  display: flex; flex-direction: column; gap: 1.1rem;
+  background: #1e1a17 !important;
+  border-top: 1px solid rgba(245,240,232,.07) !important;
+}
+
+.login-btn-row {
+  display: flex; gap: .65rem;
+}
+
+.login-btn-reset {
+  flex: 0 0 auto;
+  font-family: 'DM Mono', monospace !important;
+  font-size: .62rem !important; letter-spacing: .12em !important; text-transform: uppercase !important;
+  background: transparent !important;
+  border: 1px solid rgba(245,240,232,.12) !important;
+  color: rgba(245,240,232,.4) !important;
+  border-radius: 10px !important;
+  height: 44px !important;
+  padding: 0 1.1rem !important;
+  transition: border-color .2s, color .2s !important;
+}
+
+.login-btn-reset:hover {
+  border-color: rgba(245,240,232,.25) !important;
+  color: rgba(245,240,232,.75) !important;
+}
+
+.login-btn-reset:disabled {
+  opacity: .35 !important; cursor: not-allowed !important;
+}
+
+.login-btn-submit {
+  flex: 1;
+  font-family: 'DM Mono', monospace !important;
+  font-size: .65rem !important; letter-spacing: .14em !important; text-transform: uppercase !important;
+  background: linear-gradient(135deg, #c8500a 0%, #e06520 50%, #e8a030 100%) !important;
+  background-size: 200% auto !important;
+  border: none !important;
+  color: #fff !important;
+  border-radius: 10px !important;
+  height: 44px !important;
+  box-shadow: 0 5px 20px rgba(200,80,10,.38) !important;
+  transition: background-position .4s, box-shadow .3s, transform .15s !important;
+  position: relative; overflow: hidden;
+}
+
+.login-btn-submit::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,.12), transparent);
+  transform: translateX(-100%);
+  transition: transform .5s;
+}
+
+.login-btn-submit:hover::before { transform: translateX(100%); }
+
+.login-btn-submit:hover {
+  background-position: right center !important;
+  box-shadow: 0 9px 28px rgba(200,80,10,.55) !important;
+  transform: translateY(-1px) !important;
+}
+
+.login-btn-submit:active  { transform: translateY(0) !important; }
+
+.login-btn-submit:disabled {
+  opacity: .55 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* footer register link */
+.login-footer-link {
+  text-align: center;
+  font-size: .8rem;
+  color: rgba(245,240,232,.3);
+}
+
+.login-footer-link a {
+  font-family: 'DM Mono', monospace;
+  font-size: .68rem; letter-spacing: .06em; text-transform: uppercase;
+  color: rgba(245,240,232,.55) !important;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(245,240,232,.15);
+  padding-bottom: 1px;
+  transition: color .2s, border-color .2s;
+}
+
+.login-footer-link a:hover {
+  color: #e8a030 !important;
+  border-color: rgba(232,160,48,.4);
+}
+
+/* ── DIVIDER inside card ── */
+.login-sep {
+  border: none !important;
+  border-top: 1px solid rgba(245,240,232,.07) !important;
+  margin: 0 !important;
+}

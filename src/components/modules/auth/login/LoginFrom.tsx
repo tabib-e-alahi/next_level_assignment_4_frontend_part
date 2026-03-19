@@ -7,168 +7,170 @@ import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
 import { useRouter } from "next/navigation"
+
 import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import {
-      Card,
-      CardContent,
-      CardDescription,
-      CardFooter,
-      CardHeader,
-      CardTitle,
-} from "@/components/ui/card"
-import {
-      Field,
-      FieldDescription,
-      FieldError,
-      FieldGroup,
-      FieldLabel,
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { Rubik } from 'next/font/google';
-import {
-      InputGroup,
-} from "@/components/ui/input-group"
+import { InputGroup } from "@/components/ui/input-group"
 
 import { loginUser } from "@/services/auth"
-
-const rubik = Rubik({
-      subsets: ["latin"],
-})
-
+import "@/app/(auth)/login/login.css"
 
 const formSchema = z.object({
-      email: z.email(),
-      password: z.string(),
+  email:    z.email(),
+  password: z.string(),
 })
 
-// type RegisterFormValues = z.infer<typeof formSchema>
-
 export function LoginForm() {
-      const router = useRouter()
-      const form = useForm<z.infer<typeof formSchema>>({
-            resolver: zodResolver(formSchema),
-            defaultValues: {
-                  email: "",
-                  password: "",
-            },
-      })
+  const router = useRouter()
 
-      async function onSubmit(data: z.infer<typeof formSchema>) {
-            try {
-                  const payload = {
-                        email: data.email,
-                        password: data.password,
-                  }
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: { email: "", password: "" },
+  })
 
-                  // later replace with real API call
-                  // await registerUser(payload)
-                  const res = await loginUser(payload);
-                  console.log(res);
-                  if (res?.success) {
-                        toast.success("Login successful!")
-                        form.reset();
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    try {
+      const payload = { email: data.email, password: data.password }
 
-                        const role = res?.data?.user?.role
-                        if (role === "CUSTOMER") {
-                              router.push("/")
-                        }
-                        else if (role === "PROVIDER") {
-                              router.push("/provider/dashboard")
-                        }
+      const res = await loginUser(payload)
+      console.log(res)
 
-                  } else {
-                        toast.error(res?.message || "Login failed. Please check your credintials and try again.")
-                  }
-            } catch (error) {
-                  toast.error("Login failed. Please check your credintials and try again")
-            }
+      if (res?.success) {
+        toast.success("Login successful!")
+        form.reset()
+
+        const role = res?.data?.user?.role
+        if (role === "CUSTOMER")       router.push("/")
+        else if (role === "PROVIDER")  router.push("/provider/dashboard")
+      } else {
+        toast.error(res?.message || "Login failed. Please check your credentials and try again.")
       }
+    } catch {
+      toast.error("Login failed. Please check your credentials and try again.")
+    }
+  }
 
-      return (
-            <Card className={`w-full sm:max-w-md mx-auto ${rubik.className}`}>
-                  <CardHeader>
-                        <CardTitle className="text-2xl font-semibold">Login</CardTitle>
-                        <CardDescription>
-                              Login to start using <Link href="/" className="font-extrabold text-[#f60]">Platera</Link>.
-                        </CardDescription>
-                  </CardHeader>
+  return (
+    <Card className="login-card">
+      {/* ── HEADER ── */}
+      <CardHeader className="login-card-header">
+        <div className="login-eyebrow">
+          <span className="login-eyebrow-dot" />
+          Welcome back
+        </div>
 
-                  <CardContent>
-                        <form id="register-form" onSubmit={form.handleSubmit(onSubmit)}>
-                              <FieldGroup>
-                                    <Controller
-                                          name="email"
-                                          control={form.control}
-                                          render={({ field, fieldState }) => (
-                                                <Field data-invalid={fieldState.invalid}>
-                                                      <FieldLabel htmlFor="register-email">Email</FieldLabel>
-                                                      <Input
-                                                            {...field}
-                                                            id="register-email"
-                                                            type="email"
-                                                            aria-invalid={fieldState.invalid}
-                                                            placeholder="you@example.com"
-                                                            autoComplete="email"
-                                                      />
-                                                      {fieldState.invalid && (
-                                                            <FieldError errors={[fieldState.error]} />
-                                                      )}
-                                                </Field>
-                                          )}
-                                    />
+        <h1 className="login-title">
+          Sign in to <em>Platera</em>
+        </h1>
 
-                                    <Controller
-                                          name="password"
-                                          control={form.control}
-                                          render={({ field, fieldState }) => (
-                                                <Field data-invalid={fieldState.invalid}>
-                                                      <FieldLabel htmlFor="register-password">Password</FieldLabel>
-                                                      <InputGroup>
-                                                            <Input
-                                                                  {...field}
-                                                                  id="register-password"
-                                                                  type="password"
-                                                                  aria-invalid={fieldState.invalid}
-                                                                  placeholder="Create a password"
-                                                                  autoComplete="new-password"
-                                                            />
-                                                      </InputGroup>
-                                                      {fieldState.invalid && (
-                                                            <FieldError errors={[fieldState.error]} />
-                                                      )}
-                                                </Field>
-                                          )}
-                                    />
-                              </FieldGroup>
-                        </form>
-                  </CardContent>
+        <p className="login-desc">
+          New here?{" "}
+          <Link href="/register">Create a free account</Link>
+          {" "}and start ordering.
+        </p>
+      </CardHeader>
 
-                  <CardFooter className="flex flex-col items-stretch gap-4">
-                        <Field orientation="horizontal">
-                              <Button
-                                    type="button"
-                                    variant="outline"
-                                    onClick={() => form.reset()}
-                                    disabled={form.formState.isSubmitting}
-                              >
-                                    Reset
-                              </Button>
-                              <Button
-                                    type="submit"
-                                    form="register-form"
-                                    disabled={form.formState.isSubmitting}
-                              >
-                                    {form.formState.isSubmitting ? "Authenticating..." : "Login"}
-                              </Button>
-                        </Field>
+      {/* ── FORM ── */}
+      <CardContent className="login-card-content">
+        <form id="login-form" onSubmit={form.handleSubmit(onSubmit)}>
+          <FieldGroup className="login-field-group">
 
-                        <p className="text-center text-sm text-muted-foreground">
-                              Don't have an account?{" "}
-                              <Link href="/register" className="font-medium text-foreground hover:underline">
-                                    Register
-                              </Link>
-                        </p>
-                  </CardFooter>
-            </Card>
-      )
+            {/* EMAIL */}
+            <Controller
+              name="email"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field className="login-field" data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="login-email" className="login-field-label">
+                    Email address
+                  </FieldLabel>
+                  <Input
+                    {...field}
+                    id="login-email"
+                    type="email"
+                    aria-invalid={fieldState.invalid}
+                    placeholder="you@example.com"
+                    autoComplete="email"
+                    className="login-input"
+                  />
+                  {fieldState.invalid && (
+                    <FieldError
+                      errors={[fieldState.error]}
+                      className="login-field-error"
+                    />
+                  )}
+                </Field>
+              )}
+            />
+
+            {/* PASSWORD */}
+            <Controller
+              name="password"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field className="login-field" data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="login-password" className="login-field-label">
+                    Password
+                  </FieldLabel>
+                  <InputGroup>
+                    <Input
+                      {...field}
+                      id="login-password"
+                      type="password"
+                      aria-invalid={fieldState.invalid}
+                      placeholder="Your password"
+                      autoComplete="current-password"
+                      className="login-input"
+                    />
+                  </InputGroup>
+                  {fieldState.invalid && (
+                    <FieldError
+                      errors={[fieldState.error]}
+                      className="login-field-error"
+                    />
+                  )}
+                </Field>
+              )}
+            />
+
+          </FieldGroup>
+        </form>
+      </CardContent>
+
+      {/* ── FOOTER ── */}
+      <CardFooter className="login-card-footer">
+        <div className="login-btn-row">
+          <Button
+            type="button"
+            className="login-btn-reset"
+            onClick={() => form.reset()}
+            disabled={form.formState.isSubmitting}
+          >
+            Reset
+          </Button>
+
+          <Button
+            type="submit"
+            form="login-form"
+            className="login-btn-submit"
+            disabled={form.formState.isSubmitting}
+          >
+            {form.formState.isSubmitting ? "Authenticating…" : "Sign In"}
+          </Button>
+        </div>
+
+        <p className="login-footer-link">
+          Don't have an account?{" "}
+          <Link href="/register">Register</Link>
+        </p>
+      </CardFooter>
+    </Card>
+  )
 }
