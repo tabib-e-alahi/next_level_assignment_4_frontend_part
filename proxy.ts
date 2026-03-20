@@ -92,9 +92,9 @@ export const config = {
     "/login",
     "/register",
     "/cart",
-    "/checkout",
-    "/customer-dashboard/:path*",
-    "/provider-dashboard/:path*",
-    "/admin-dashboard/:path*",
+    // "/checkout",
+    // "/customer-dashboard/:path*",
+    // "/provider-dashboard/:path*",
+    // "/admin-dashboard/:path*",
   ],
 }
