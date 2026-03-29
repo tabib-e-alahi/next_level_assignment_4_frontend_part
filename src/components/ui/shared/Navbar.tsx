@@ -7,13 +7,14 @@ import { Menu, ShoppingCart } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { getUser } from "@/services/auth"
+import { getUser, userLogOut } from "@/services/auth"
 
 import "./nav-footer.css"
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getCurrentUser = async () => {
@@ -21,11 +22,16 @@ export default function Navbar() {
       setUser(userData)
     }
     getCurrentUser()
-  }, [])
+  }, [loading])
+
+  const handleLogOut = () => {
+    userLogOut();
+    setLoading(true);
+  };
 
   const navLinks = [
-    { name: "Home",   href: "/" },
-    { name: "Meals",  href: "/meals" },
+    { name: "Home", href: "/" },
+    { name: "Meals", href: "/meals" },
     { name: "Orders", href: "/orders" },
   ]
 
@@ -62,15 +68,10 @@ export default function Navbar() {
             <Link href="/profile" className="nav-btn-outline">
               Profile
             </Link>
-            <Link href="/logout" className="nav-btn-solid">
-              Logout
-            </Link>
+            <Button onClick={handleLogOut} className="nav-btn-solid">Logout</Button>
           </div>
         ) : (
           <div className="nav-actions">
-            <Link href="/cart" className="nav-cart" aria-label="Cart">
-              <ShoppingCart size={16} />
-            </Link>
             <Link href="/login" className="nav-btn-outline">
               Login
             </Link>
@@ -109,10 +110,10 @@ export default function Navbar() {
                     {link.name}
                   </Link>
                 ))}
-                <Link href="/cart" className="nav-sheet-cart" onClick={() => setOpen(false)}>
+                {user && <Link href="/cart" className="nav-sheet-cart" onClick={() => setOpen(false)}>
                   <ShoppingCart size={13} />
                   Cart
-                </Link>
+                </Link>}
               </nav>
 
               <hr className="nav-sheet-divider" />
@@ -124,9 +125,7 @@ export default function Navbar() {
                     <Link href="/profile" onClick={() => setOpen(false)}>
                       <Button className="nav-sheet-btn-outline">Profile</Button>
                     </Link>
-                    <Link href="/logout" onClick={() => setOpen(false)}>
-                      <Button className="nav-sheet-btn-solid">Logout</Button>
-                    </Link>
+                    <Button onClick={handleLogOut} className="nav-sheet-btn-solid">Logout</Button>
                   </>
                 ) : (
                   <>

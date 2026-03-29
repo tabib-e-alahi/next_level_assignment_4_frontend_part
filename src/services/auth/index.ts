@@ -57,3 +57,8 @@ export const getUser = async() =>{
             return null;
       }
 }
+
+export const userLogOut = async () => {
+  const cookieStore = await cookies();
+  cookieStore.delete("token");
+};
