@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getUser } from "@/services/auth"
+import { Role } from "@/constants/roles";
 
-type Role = "CUSTOMER" | "PROVIDER" | "ADMIN"
+
 
 // const PUBLIC_ROUTES = ["/", "/login", "/register", "/meals", "/meals/:path*"]
 // const AUTH_ROUTES = ["/login", "/register"]
@@ -47,6 +48,7 @@ export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   const userData = await getUser()
+  console.log("Form proxy-----: ", userData);
 
   const isAuthenticated = !!userData
   const userRole = userData?.role as Role | undefined

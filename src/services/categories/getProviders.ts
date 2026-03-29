@@ -16,7 +16,7 @@ export const getProviders = async (limit?: number | undefined): Promise<Provider
 
             const result = await res.json()
 
-            console.log(result.data);
+            // console.log(result.data);
             return result?.data || []
       } catch (error) {
             console.error("Failed to fetch providers:", error)

@@ -30,7 +30,7 @@ export default async function SingleMealpage({
 }) {
   const { id } = await params
   const { data: meal } = await mealService.getMealById(id)
-  console.log(meal);
+  // console.log(meal);
   const reviewsCount = meal?._count?.reviews || 0
   const avgRating =
     meal?.reviews?.length > 0
