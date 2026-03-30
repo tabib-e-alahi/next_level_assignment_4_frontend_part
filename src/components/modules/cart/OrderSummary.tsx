@@ -5,15 +5,15 @@ import { ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CartItem } from "@/types/cart";
 
-type Props = {
+type OrderSummaryItems = {
   items: CartItem[];
   busy: boolean;
-  onClearCart: () => void;
+  handleClearCart: () => void;
 };
 
-const DELIVERY_FEE = 40;
+const DELIVERY_FEE = 70;
 
-export default function OrderSummary({ items, busy, onClearCart }: Props) {
+export default function OrderSummary({ items, busy, handleClearCart }: OrderSummaryItems) {
   const itemCount  = items.reduce((sum, i) => sum + i.quantity, 0);
   const subtotal   = items.reduce((sum, i) => sum + i.meal.price * i.quantity, 0);
   const delivery   = items.length > 0 ? DELIVERY_FEE : 0;
@@ -30,7 +30,6 @@ export default function OrderSummary({ items, busy, onClearCart }: Props) {
       <div className="cart-summary">
         <h2 className="cart-summary-title">Your Order</h2>
 
-        {/* rows */}
         <div className="cart-summary-rows">
           <div className="cart-summary-row">
             <span className="cart-summary-row-label">
@@ -51,7 +50,6 @@ export default function OrderSummary({ items, busy, onClearCart }: Props) {
 
         <hr className="cart-summary-sep" />
 
-        {/* total */}
         <div className="cart-summary-total">
           <span className="cart-summary-total-label">Total</span>
           <div className="cart-summary-total-value">
@@ -60,7 +58,6 @@ export default function OrderSummary({ items, busy, onClearCart }: Props) {
           </div>
         </div>
 
-        {/* checkout */}
         <Link href="/checkout">
           <Button
             className="cart-checkout-btn"
@@ -71,16 +68,14 @@ export default function OrderSummary({ items, busy, onClearCart }: Props) {
           </Button>
         </Link>
 
-        {/* clear */}
         <Button
           className="cart-clear-btn"
           disabled={items.length === 0 || busy}
-          onClick={onClearCart}
+          onClick={handleClearCart}
         >
           {busy ? "Clearing…" : "Clear Cart"}
         </Button>
 
-        {/* provider note */}
         {providerNames.length > 0 && (
           <div className="cart-provider-note">
             <strong>Provider{providerNames.length > 1 ? "s" : ""}:{" "}</strong>

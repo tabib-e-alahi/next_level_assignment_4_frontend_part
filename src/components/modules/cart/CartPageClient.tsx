@@ -5,7 +5,6 @@ import Link from "next/link";
 import { ShoppingBag } from "lucide-react";
 import { toast } from "sonner";
 
-
 import "./cart.css";
 import { cartService } from "@/services/cart/cart.service";
 import { Cart, CartItem } from "@/types/cart";
@@ -13,29 +12,26 @@ import CartItemCard from "./CartItemCard";
 import OrderSummary from "./OrderSummary";
 
 export default function CartPageClient() {
-  // ── STATE ──────────────────────────────────────────────────────
-  const [cart, setCart]     = useState<Cart | null>(null);
+  const [cart, setCart] = useState<Cart | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError]   = useState("");
-  const [busyId, setBusyId] = useState<string | null>(null); // itemId | "clear"
+  const [error, setError] = useState("");
+  const [busyId, setBusyId] = useState<string | null>(null);
 
-  // ── FETCH ──────────────────────────────────────────────────────
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const { data, error } = await cartService.getMyCart();
-      if (error) setError(error.message);
-      else setCart(data);
+      const res = await cartService.getMyCart();
+      if (res.error) setError(res.error.message);
+      else setCart(res.data);
       setLoading(false);
     })();
   }, []);
 
-  const items       = cart?.items ?? [];
-  const itemCount   = items.reduce((s, i) => s + i.quantity, 0);
+  const items = cart?.items ?? [];
+  const itemCount = items.reduce((s, i) => s + i.quantity, 0);
   const providerNames = [...new Set(items.map((i) => i.meal.provider.businessName))];
 
-  // ── OPTIMISTIC HELPERS ─────────────────────────────────────────
-  const patchQty = (itemId: string, qty: number) =>
+  const updateQuantity = (itemId: string, qty: number) =>
     setCart((prev) =>
       prev
         ? { ...prev, items: prev.items.map((i) => i.id === itemId ? { ...i, quantity: qty } : i) }
@@ -47,37 +43,36 @@ export default function CartPageClient() {
       prev ? { ...prev, items: prev.items.filter((i) => i.id !== itemId) } : prev
     );
 
-  // ── HANDLERS ───────────────────────────────────────────────────
-  const handleIncrease = async (item: CartItem) => {
-    const next = item.quantity + 1;
+  const hadnleQuantityIncrease = async (item: CartItem) => {
+    const updatedQuantity = item.quantity + 1;
     setBusyId(item.id);
-    patchQty(item.id, next);
+    updateQuantity(item.id, updatedQuantity);
 
-    const { error } = await cartService.updateItemQuantity(item.id, next);
-    if (error) { toast.error(error.message); patchQty(item.id, item.quantity); }
+    const res = await cartService.updateItemQuantity(item.id, updatedQuantity);
+    if (res.error) { toast.error(res.error.message); updateQuantity(item.id, item.quantity); }
     setBusyId(null);
   };
 
-  const handleDecrease = async (item: CartItem) => {
+  const hadnleQuantityDecrease = async (item: CartItem) => {
     if (item.quantity <= 1) return;
-    const next = item.quantity - 1;
+    const updatedQuantity = item.quantity - 1;
     setBusyId(item.id);
-    patchQty(item.id, next);
+    updateQuantity(item.id, updatedQuantity);
 
-    const { error } = await cartService.updateItemQuantity(item.id, next);
-    if (error) { toast.error(error.message); patchQty(item.id, item.quantity); }
+    const res = await cartService.updateItemQuantity(item.id, updatedQuantity);
+    if (res.error) { toast.error(res.error.message); updateQuantity(item.id, item.quantity); }
     setBusyId(null);
   };
 
-  const handleRemove = async (item: CartItem) => {
+  const handleItemDelete = async (item: CartItem) => {
     setBusyId(item.id);
-    removeFromState(item.id);
-
-    const { error } = await cartService.removeItem(item.id);
-    if (error) {
-      toast.error(error.message);
+  
+    const res = await cartService.removeItem(item.id);
+    if (res.error) {
+      toast.error(res.error.message);
       setCart((prev) => prev ? { ...prev, items: [...prev.items, item] } : prev);
     } else {
+      removeFromState(item.id);
       toast.success("Item removed");
     }
     setBusyId(null);
@@ -85,9 +80,9 @@ export default function CartPageClient() {
 
   const handleClearCart = async () => {
     setBusyId("clear");
-    const { error } = await cartService.clearCart();
-    if (error) {
-      toast.error(error.message);
+    const res = await cartService.clearCart();
+    if (res.error) {
+      toast.error(res.error.message);
     } else {
       setCart((prev) => prev ? { ...prev, items: [] } : prev);
       toast.success("Cart cleared");
@@ -95,7 +90,7 @@ export default function CartPageClient() {
     setBusyId(null);
   };
 
-  // ── RENDER ─────────────────────────────────────────────────────
+
   return (
     <div className="cart-root">
       <div className="cart-orb-1" aria-hidden />
@@ -117,8 +112,8 @@ export default function CartPageClient() {
             {loading
               ? "Loading your cart…"
               : items.length > 0
-              ? `${itemCount} item${itemCount !== 1 ? "s" : ""} · ${providerNames.length} provider${providerNames.length !== 1 ? "s" : ""}`
-              : "Your cart is empty — add something delicious"}
+                ? `${itemCount} item${itemCount !== 1 ? "s" : ""} · ${providerNames.length} provider${providerNames.length !== 1 ? "s" : ""}`
+                : "Your cart is empty — add something delicious"}
           </p>
         </div>
       </div>
@@ -163,20 +158,19 @@ export default function CartPageClient() {
                   key={item.id}
                   item={item}
                   busy={busyId === item.id}
-                  onIncrease={() => handleIncrease(item)}
-                  onDecrease={() => handleDecrease(item)}
-                  onRemove={() => handleRemove(item)}
+                  hadnleQuantityIncrease={() => hadnleQuantityIncrease(item)}
+                  hadnleQuantityDecrease={() => hadnleQuantityDecrease(item)}
+                  handleItemDelete={() => handleItemDelete(item)}
                 />
               ))}
             </div>
           )}
         </div>
 
-        {/* RIGHT — order summary */}
         <OrderSummary
           items={items}
           busy={busyId === "clear"}
-          onClearCart={handleClearCart}
+          handleClearCart={handleClearCart}
         />
 
       </div>
