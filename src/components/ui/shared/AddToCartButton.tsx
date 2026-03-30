@@ -1,70 +1,71 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { ShoppingBag, Loader2 } from "lucide-react"
-import { useRouter } from "next/navigation"
-
-import { Button } from "@/components/ui/button"
-
+import { useState } from "react";
+import { ShoppingBag, Check, Loader2 } from "lucide-react";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { cartService } from "@/services/cart/cart.service";
 
 type Props = {
-  mealId: string
-  isAvailable?: boolean
-}
+  mealId: string;
+  quantity?: number;
+  className?: string;
+};
 
-export default function AddToCartButton({ mealId, isAvailable = true }: Props) {
-  const [loading, setLoading] = useState(false)
-  const router = useRouter()
+export default function AddToCartButton({
+  mealId,
+  quantity = 1,
+}: Props) {
+  const router = useRouter();
+  const [status, setStatus] = useState<"idle" | "loading" | "done">("idle");
 
   const handleAddToCart = async () => {
-    try {
-      console.log("From cart: ", mealId);
-      // setLoading(true)
-
-      // const user = await getUser()
-
-      // if (!user) {
-      //   router.push("/login")
-      //   return
-      // }
-
-      // if (user.role !== "CUSTOMER") {
-      //   alert("Only customers can add meals to cart.")
-      //   return
-      // }
-
-      // const res = await cartService.addToCart({
-      //   mealId,
-      //   quantity: 1,
-      // })
-
-      // if (!res?.success) {
-      //   alert(res?.message || "Failed to add to cart")
-      //   return
-      // }
-
-      // alert("Meal added to cart successfully.")
-      // router.refresh()
-    } catch (error) {
-      console.error(error)
-      alert("Something went wrong while adding to cart.")
-    } finally {
-      setLoading(false)
+    if (status === "loading") {
+      return;
     }
-  }
+
+    setStatus("loading");
+
+    const { success, error } = await cartService.addToCart(mealId, quantity);
+
+    if (!success) {
+      toast.error(error?.message || "Could not add to cart");
+      setStatus("idle");
+      return;
+    }
+
+    toast.success("Added to cart!", {
+      action: {
+        label: "View Cart",
+        onClick: () => router.push("/cart"),
+      },
+    });
+
+    setStatus("done");
+
+    setTimeout(() => setStatus("idle"), 2000);
+  };
+
 
   return (
     <Button
-      className="cta-btn"
       onClick={handleAddToCart}
-      disabled={!isAvailable || loading}
+      disabled={status === "loading"}
+      className="cta-btn"
     >
-      {loading ? (
-        <Loader2 size={15} className="mr-2 animate-spin" />
+      {status === "loading" ? (
+        <Loader2 size={15} className="mr-2 shrink-0 animate-spin" />
+      ) : status === "done" ? (
+        <Check size={15} className="mr-2 shrink-0" />
       ) : (
-        <ShoppingBag size={15} className="mr-2 flex-shrink-0" />
+        <ShoppingBag size={15} className="mr-2 shrink-0" />
       )}
-      {loading ? "Adding..." : "Add to Cart"}
+      {status === "loading"
+        ? "Adding…"
+        : status === "done"
+          ? "Added to Cart!"
+          : "Add to Cart"}
     </Button>
-  )
+  );
 }

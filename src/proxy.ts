@@ -47,9 +47,11 @@ export async function proxy(request: NextRequest) {
     pathname.startsWith(routeObj.route)
   )
 
+  console.log(matchedRoute);
+
   if (matchedRoute && isAuthenticated) {
     const isAllowed = matchedRoute!.roles.includes(userRole as Role)
-
+    
     if (!isAllowed && userRole === "ADMIN") {
       return NextResponse.redirect(new URL("/admin-dashboard", request.url))
     }
@@ -62,7 +64,7 @@ export async function proxy(request: NextRequest) {
       return NextResponse.redirect(new URL("/customer-dashboard", request.url))
     }
 
-    return NextResponse.redirect(new URL("/login", request.url))
+    return NextResponse.next()
   }
 
 
