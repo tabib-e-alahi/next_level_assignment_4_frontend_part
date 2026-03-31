@@ -1,6 +1,6 @@
 import DashboardSideBar from "@/components/modules/dashboard/DashboardSideBar"
 import { getUser } from "@/services/auth"
-
+import "./dashboard.css"
 export default async function DashboardLeayout({
   customer,
   provider,
@@ -13,18 +13,14 @@ export default async function DashboardLeayout({
 
   const user = await getUser()
 
-const userInfo = {
-  name: user.name as string,
-  role: user.role as string
-}
   return (
-    <div className="flex">
-      <DashboardSideBar user={user}></DashboardSideBar>
-      <div>
+    <div className="dashboard-layout">
+      <DashboardSideBar  user={user}></DashboardSideBar>
+      <main className="dashboard-content">
         {customer}
         {provider}
         {admin}
-      </div>
+      </main>
     </div>
   );
 }

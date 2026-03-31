@@ -7,20 +7,18 @@ export type OrderStatus =
 
 export type PaymentMethod = "COD";
 
-export type MealInfo = {
-  id: string;
-  title?: string;
-  image?: string;
-};
 
 export type OrderItem = {
   id: string;
   orderId: string;
   mealId: string;
-  categoryId: string;
+  categoryId?: string;
   quantity: number;
-  price: number;
-  meal?: MealInfo;
+  unitPrice: number;
+  meal?: {
+    title?: string;
+    image?: string;
+  };
 };
 
 export type Order = {
@@ -30,7 +28,7 @@ export type Order = {
   deliveryAddress: string;
   deliveryCharge: number;
   totalAmount: number;
-  paymentMethod: PaymentMethod;
+  paymentMethod: string;
   status: OrderStatus;
   createdAt: string;
   updatedAt: string;

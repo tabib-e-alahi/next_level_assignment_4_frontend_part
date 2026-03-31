@@ -45,7 +45,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100dvh;
+  min-height: 100dvh;
   width: 300px;
   max-width: 300px;
   flex-shrink: 0;

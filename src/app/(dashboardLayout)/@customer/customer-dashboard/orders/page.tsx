@@ -4,38 +4,10 @@ import { useEffect, useMemo, useState } from "react";
 import { XCircle } from "lucide-react";
 import "./orders.css";
 import { orderService } from "@/services/order/order.service";
-
-type OrderStatus = "PLACED" | "PREPARING" | "READY" | "DELIVERED" | "CANCELLED";
-
-type OrderItem = {
-  id: string;
-  orderId: string;
-  mealId: string;
-  categoryId?: string;
-  quantity: number;
-  price: number;
-  meal?: {
-    title?: string;
-    image?: string;
-  };
-};
-
-type Order = {
-  id: string;
-  customerId: string;
-  providerId: string;
-  deliveryAddress: string;
-  deliveryCharge: number;
-  totalAmount: number;
-  paymentMethod: string;
-  status: OrderStatus;
-  createdAt: string;
-  updatedAt: string;
-  placedAt: string;
-  deliveredAt: string | null;
-  cancelledAt: string | null;
-  orderItems: OrderItem[];
-};
+import { Order, OrderStatus } from "@/types/order";
+import { reviewService } from "@/services/review.service";
+import StarRating from "@/components/modules/reviews/StarRating";
+import { toast } from "sonner";
 
 const STATUS_STEPS: OrderStatus[] = ["PLACED", "PREPARING", "READY", "DELIVERED"];
 
@@ -90,9 +62,7 @@ export default function OrdersPage() {
 
       <div className="orders-table">
         <div className="orders-table-head orders-row">
-          <div>Order ID</div>
-          <div>Customer</div>
-          <div>Provider</div>
+          <div>Order No</div>
           <div>Delivery Address</div>
           <div>Delivery Charge</div>
           <div>Total Amount</div>
@@ -103,23 +73,25 @@ export default function OrdersPage() {
         </div>
 
         <div className="orders-table-body">
-          {orders.map((order) => (
+          {orders.map((order, idx) => (
             <div key={order.id} className="orders-row orders-data-row">
-              <div className="orders-cell-id">{order.id}</div>
-              <div>{order.customerId}</div>
-              <div>{order.providerId}</div>
+              <div className="orders-cell-id">{idx + 1}</div>
               <div>{order.deliveryAddress}</div>
               <div>৳{order.deliveryCharge}</div>
               <div>৳{order.totalAmount}</div>
               <div>{order.paymentMethod}</div>
               <div>{formatDate(order.createdAt)}</div>
               <div>
-                <button
-                  className="orders-action-btn"
-                  onClick={() => setTrackOrder(order)}
-                >
-                  Track
-                </button>
+                {
+                  order.status === "DELIVERED" ? <p className="text-lime-400 font-bold">Delivered</p>
+                    :
+                    <button
+                      className="orders-action-btn"
+                      onClick={() => setTrackOrder(order)}
+                    >
+                      Track
+                    </button>
+                }
               </div>
               <div>
                 <button
@@ -195,16 +167,14 @@ function TrackModal({
                 return (
                   <div key={step} className="track-step">
                     <div
-                      className={`track-dot ${done ? "done" : ""} ${
-                        active ? "active" : ""
-                      }`}
+                      className={`track-dot ${done ? "done" : ""} ${active ? "active" : ""
+                        }`}
                     >
                       {done ? "✓" : ""}
                     </div>
                     <span
-                      className={`track-label ${done ? "done" : ""} ${
-                        active ? "active" : ""
-                      }`}
+                      className={`track-label ${done ? "done" : ""} ${active ? "active" : ""
+                        }`}
                     >
                       {STATUS_CONFIG[step].label.toUpperCase()}
                     </span>
@@ -231,6 +201,33 @@ function DetailsModal({
   order: Order;
   onClose: () => void;
 }) {
+  const [openReviewItemId, setOpenReviewItemId] = useState<string | null>(null);
+  const [rating, setRating] = useState<number>(5);
+  const [comment, setComment] = useState<string>("");
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleReviewSubmit = async (mealId: string, orderItemId: string) => {
+    setSubmitting(true);
+
+    const result = await reviewService.createReview({
+      mealId,
+      orderItemId,
+      rating,
+      comment,
+    });
+
+    setSubmitting(false);
+
+    if (result.data) {
+      setOpenReviewItemId(null);
+      setRating(5);
+      setComment("");
+      toast.success("Review submitted successfully");
+    } else {
+      toast.error(result.error?.message || "Failed to submit review");
+    }
+  };
+
   return (
     <div className="orders-modal-overlay" onClick={onClose}>
       <div
@@ -240,7 +237,6 @@ function DetailsModal({
         <div className="orders-modal-top">
           <div>
             <p className="orders-modal-eyebrow">Order Details</p>
-            <h2 className="orders-modal-title">{order.id}</h2>
           </div>
           <button className="orders-close-btn" onClick={onClose}>
             ×
@@ -248,31 +244,82 @@ function DetailsModal({
         </div>
 
         <div className="details-section">
+          <h3 className="details-items-title">Ordered Items</h3>
+
+          <div className="details-items-list">
+            {order.orderItems.map((item) => (
+              <div key={item.id} className="details-item-card">
+                <div className="details-item-row">
+                  <div>
+                    <p className="details-item-title">
+                      {item.meal?.title || item.mealId}
+                    </p>
+                  </div>
+
+                  <div className="details-item-meta">
+                    <span>Qty: {item.quantity}</span>
+                    <span>Price: ৳{item.unitPrice}</span>
+                    <span>Total: ৳{item.unitPrice * item.quantity}</span>
+                  </div>
+                </div>
+
+                {order.status === "DELIVERED" && (
+                  <div className="details-review-box">
+                    <button
+                      className="orders-action-btn"
+                      onClick={() =>
+                        setOpenReviewItemId(
+                          openReviewItemId === item.id ? null : item.id
+                        )
+                      }
+                    >
+                      {openReviewItemId === item.id ? "Close Review" : "Review"}
+                    </button>
+
+                    {openReviewItemId === item.id && (
+                      <div className="review-form">
+                        <div className="review-field">
+                          <label>Rating</label>
+
+                          <StarRating
+                            value={rating}
+                            onChange={setRating}
+                          />
+
+                          <span className="rating-value">{rating.toFixed(1)} / 5</span>
+                        </div>
+
+                        <div className="review-field">
+                          <label>Comment</label>
+                          <textarea
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
+                            placeholder="Write your review"
+                            className="review-textarea"
+                            rows={4}
+                          />
+                        </div>
+
+                        <button
+                          className="orders-action-btn"
+                          disabled={submitting}
+                          onClick={() =>
+                            handleReviewSubmit(item.mealId, item.id)
+                          }
+                        >
+                          {submitting ? "Submitting..." : "Submit Review"}
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="details-section">
           <div className="details-grid">
-            <div>
-              <span className="details-label">Customer ID</span>
-              <p>{order.customerId}</p>
-            </div>
-            <div>
-              <span className="details-label">Provider ID</span>
-              <p>{order.providerId}</p>
-            </div>
-            <div>
-              <span className="details-label">Delivery Address</span>
-              <p>{order.deliveryAddress}</p>
-            </div>
-            <div>
-              <span className="details-label">Payment Method</span>
-              <p>{order.paymentMethod}</p>
-            </div>
-            <div>
-              <span className="details-label">Delivery Charge</span>
-              <p>৳{order.deliveryCharge}</p>
-            </div>
-            <div>
-              <span className="details-label">Total Amount</span>
-              <p>৳{order.totalAmount}</p>
-            </div>
             <div>
               <span className="details-label">Placed At</span>
               <p>{formatDate(order.placedAt)}</p>
@@ -281,31 +328,6 @@ function DetailsModal({
               <span className="details-label">Updated At</span>
               <p>{formatDate(order.updatedAt)}</p>
             </div>
-          </div>
-        </div>
-
-        <div className="details-section">
-          <h3 className="details-items-title">Ordered Items</h3>
-
-          <div className="details-items-list">
-            {order.orderItems.map((item) => (
-              <div key={item.id} className="details-item-row">
-                <div>
-                  <p className="details-item-title">
-                    {item.meal?.title || item.mealId}
-                  </p>
-                  <p className="details-item-sub">
-                    Meal ID: {item.mealId}
-                  </p>
-                </div>
-
-                <div className="details-item-meta">
-                  <span>Qty: {item.quantity}</span>
-                  <span>Price: ৳{item.price}</span>
-                  <span>Total: ৳{item.price * item.quantity}</span>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </div>

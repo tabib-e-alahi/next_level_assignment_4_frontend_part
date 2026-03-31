@@ -1,0 +1,200 @@
+.profile-page {
+  padding: 28px;
+  color: #f5f0e8;
+  background:
+    radial-gradient(circle at top left, rgba(232, 160, 48, 0.08), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(200, 80, 10, 0.08), transparent 24%),
+    #0a0807;
+}
+
+.profile-header {
+  margin-bottom: 28px;
+}
+
+.profile-eyebrow {
+  margin: 0 0 10px;
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: rgba(232, 160, 48, 0.82);
+}
+
+.profile-title {
+  margin: 0;
+  font-family: "Playfair Display", serif;
+  font-size: 38px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #f5f0e8;
+}
+
+.profile-subtitle {
+  margin: 10px 0 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  color: rgba(245, 240, 232, 0.64);
+}
+
+.profile-card {
+  border: 1px solid rgba(245, 240, 232, 0.08);
+  border-radius: 22px;
+  padding: 28px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02)),
+    rgba(255, 255, 255, 0.025);
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.profile-section-head {
+  margin-bottom: 20px;
+}
+
+.profile-section-eyebrow {
+  margin: 0 0 8px;
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: rgba(232, 160, 48, 0.78);
+}
+
+.profile-section-title {
+  margin: 0;
+  font-family: "Playfair Display", serif;
+  font-size: 26px;
+  line-height: 1.1;
+  color: #f5f0e8;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.profile-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.profile-field label {
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(232, 160, 48, 0.8);
+}
+
+.profile-input {
+  border: 1px solid rgba(245, 240, 232, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #f5f0e8;
+  padding: 12px 14px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.profile-input:focus {
+  border-color: rgba(232, 160, 48, 0.3);
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.profile-input-readonly {
+  opacity: 0.72;
+  cursor: not-allowed;
+}
+
+.profile-divider {
+  height: 1px;
+  margin: 28px 0;
+  background: linear-gradient(
+    90deg,
+    rgba(232, 160, 48, 0),
+    rgba(232, 160, 48, 0.22),
+    rgba(232, 160, 48, 0)
+  );
+}
+
+.profile-feedback {
+  margin: 18px 0 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  color: #e8a030;
+}
+
+.profile-actions {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.profile-btn {
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(232, 160, 48, 0.12);
+  background: linear-gradient(135deg, #c8500a, #e8a030);
+  color: #0a0807;
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(200, 80, 10, 0.24);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+}
+
+.profile-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 34px rgba(200, 80, 10, 0.3);
+}
+
+.profile-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.profile-message {
+  padding: 40px 28px;
+  color: #f5f0e8;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+}
+
+@media (max-width: 768px) {
+  .profile-page {
+    padding: 18px;
+  }
+
+  .profile-title {
+    font-size: 30px;
+  }
+
+  .profile-section-title {
+    font-size: 22px;
+  }
+
+  .profile-card {
+    padding: 20px;
+    border-radius: 18px;
+  }
+
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-actions {
+    justify-content: stretch;
+  }
+
+  .profile-btn {
+    width: 100%;
+  }
+}

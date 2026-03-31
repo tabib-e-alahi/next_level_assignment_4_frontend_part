@@ -1,0 +1,25 @@
+.star-rating {
+  display: flex;
+  gap: 6px;
+}
+
+.star-container {
+  position: relative;
+  cursor: pointer;
+  font-size: 26px; /* increased size */
+  line-height: 1;
+}
+
+.star-bg {
+  color: rgba(245, 240, 232, 0.2);
+}
+
+.star-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  color: #e8a030;
+  pointer-events: none;
+}

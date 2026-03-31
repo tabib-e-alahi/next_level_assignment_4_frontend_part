@@ -47,6 +47,7 @@
 .orders-table {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 14px;
 }
 
@@ -57,28 +58,27 @@
   text-transform: uppercase;
   letter-spacing: 0.14em;
   color: rgba(245, 240, 232, 0.42);
+  text-align: center;
 }
 
 .orders-table-body {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  text-align: center;
 }
 
 .orders-row {
   display: grid;
   grid-template-columns:
-    1.3fr
-    1fr
-    1fr
-    1.4fr
-    0.8fr
+    0.5fr
+    1.8fr
+    0.6fr
     0.9fr
-    0.8fr
-    1fr
-    0.8fr
+    0.5fr
+    1.5fr
+    0.5fr
     0.9fr;
-  gap: 14px;
+  gap: 12px;
   align-items: center;
 }
 
@@ -99,6 +99,7 @@
     border-color 0.28s ease,
     box-shadow 0.28s ease,
     background 0.28s ease;
+  
 }
 
 .orders-data-row::before {
@@ -432,6 +433,58 @@
   font-family: "DM Sans", sans-serif;
   font-size: 14px;
   color: rgba(245, 240, 232, 0.78);
+}
+
+.details-item-card {
+  border: 1px solid rgba(245, 240, 232, 0.06);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.025);
+  padding: 16px;
+}
+
+.details-review-box {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(245, 240, 232, 0.08);
+}
+
+.review-form {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.review-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.review-field label {
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(232, 160, 48, 0.78);
+}
+
+.review-input,
+.review-textarea {
+  width: 100%;
+  border: 1px solid rgba(245, 240, 232, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #f5f0e8;
+  padding: 12px 14px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  outline: none;
+}
+
+.review-input:focus,
+.review-textarea:focus {
+  border-color: rgba(232, 160, 48, 0.25);
 }
 
 @media (max-width: 1400px) {

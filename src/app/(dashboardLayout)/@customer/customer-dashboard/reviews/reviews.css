@@ -1,0 +1,126 @@
+.reviews-page {
+  padding: 28px;
+  color: #f5f0e8;
+  background:
+    radial-gradient(circle at top left, rgba(232, 160, 48, 0.08), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(200, 80, 10, 0.08), transparent 24%),
+    #0a0807;
+  min-height: 100%;
+}
+
+.reviews-header {
+  margin-bottom: 28px;
+}
+
+.reviews-eyebrow {
+  margin: 0 0 10px;
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: rgba(232, 160, 48, 0.82);
+}
+
+.reviews-title {
+  margin: 0;
+  font-family: "Playfair Display", serif;
+  font-size: 38px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #f5f0e8;
+}
+
+.reviews-subtitle {
+  margin: 10px 0 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  color: rgba(245, 240, 232, 0.64);
+}
+
+.reviews-page-message {
+  padding: 48px 28px;
+  color: #f5f0e8;
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.review-card {
+  border: 1px solid rgba(245, 240, 232, 0.08);
+  border-radius: 22px;
+  padding: 20px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02)),
+    rgba(255, 255, 255, 0.025);
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.review-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.review-meal-title {
+  margin: 0 0 6px;
+  font-size: 18px;
+  color: #f5f0e8;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 600;
+}
+
+.review-meta {
+  margin: 0;
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  color: rgba(245, 240, 232, 0.5);
+}
+
+.review-rating-badge {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #c8500a, #e8a030);
+  color: #0a0807;
+  font-family: "DM Mono", monospace;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.review-comment {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(245, 240, 232, 0.82);
+}
+
+.review-card-footer {
+  margin-top: 16px;
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  color: rgba(245, 240, 232, 0.5);
+}
+
+@media (max-width: 768px) {
+  .reviews-page {
+    padding: 18px;
+  }
+
+  .reviews-title {
+    font-size: 30px;
+  }
+
+  .review-card-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
