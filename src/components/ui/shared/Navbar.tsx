@@ -8,12 +8,12 @@ import { Menu, ShoppingCart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { getUser, userLogOut } from "@/services/auth"
-
 import "./nav-footer.css"
+import { User } from "@/types/user"
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -29,11 +29,32 @@ export default function Navbar() {
     setLoading(true);
   };
 
+  const getDashboardLink = (role: string) => {
+    switch (role) {
+      case "ADMIN":
+        return "/admin-dashboard";
+      case "CUSTOMER":
+        return "/customer-dashboard";
+      case "PROVIDER":
+        return "/provider-dashboard";
+      default:
+        return "/";
+    }
+  };
+
+
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Meals", href: "/meals" },
-    { name: "Orders", href: "/orders" },
-  ]
+    ...(user
+      ? [
+        {
+          name: "Dashboard",
+          href: getDashboardLink(user.role),
+        },
+      ]
+      : []),
+  ];
 
   return (
     <header className="nav-root">

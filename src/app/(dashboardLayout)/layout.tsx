@@ -13,9 +13,13 @@ export default async function DashboardLeayout({
 
   const user = await getUser()
 
+const userInfo = {
+  name: user.name as string,
+  role: user.role as string
+}
   return (
     <div className="flex">
-      <DashboardSideBar userRole={user.role}></DashboardSideBar>
+      <DashboardSideBar user={user}></DashboardSideBar>
       <div>
         {customer}
         {provider}

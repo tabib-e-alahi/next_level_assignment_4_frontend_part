@@ -1,14 +1,12 @@
-import { ClipboardList, LayoutDashboard, MessageSquareQuote, Settings, ShoppingBag, Users, UtensilsCrossed } from "lucide-react";
+import { House, LayoutDashboard, MessageSquareQuote, ShoppingBag, Users,} from "lucide-react";
 
 export const customerRoutes = {
-    title: "Customer Dashboard",
-    navItems: [
-      { label: "Profile", href: "/dashboard", icon: LayoutDashboard, active: true },
-      { label: "Menu", href: "/dashboard/menu", icon: UtensilsCrossed, badge: "12" },
-      { label: "Orders", href: "/dashboard/orders", icon: ShoppingBag, badge: "08" },
-      { label: "Reservations", href: "/dashboard/reservations", icon: ClipboardList },
-      { label: "Customers", href: "/dashboard/customers", icon: Users },
-      { label: "Reviews", href: "/dashboard/reviews", icon: MessageSquareQuote, badge: "New" },
-      { label: "Settings", href: "/dashboard/settings", icon: Settings },
-    ]
-  }
+  title: "Customer Dashboard",
+  navItems: [
+    { label: "Home", href: "/", icon: House },
+    { label: "Profile", href: "/customer-dashboard", icon: LayoutDashboard },
+    { label: "Orders", href: "/customer-dashboard/orders", icon: ShoppingBag, badge: "08" },
+    { label: "Customers", href: "/dashboard/customers", icon: Users },
+    { label: "Reviews", href: "/customer-dashboard/reviews", icon: MessageSquareQuote },
+  ]
+}
