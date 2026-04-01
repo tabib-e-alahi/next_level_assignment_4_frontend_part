@@ -20,6 +20,7 @@ export type Category = {
 
 
 export type Review = {
+  id:string
   rating: number
   comment?: string
   customer:{

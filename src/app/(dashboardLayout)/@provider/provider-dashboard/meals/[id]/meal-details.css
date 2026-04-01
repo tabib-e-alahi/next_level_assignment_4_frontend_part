@@ -38,11 +38,11 @@
   border-radius: 24px;
   padding: 24px;
   background:
-    linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.02)),
-    rgba(255,255,255,0.025);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02)),
+    rgba(255, 255, 255, 0.025);
   box-shadow:
     0 16px 40px rgba(0, 0, 0, 0.28),
-    inset 0 1px 0 rgba(255,255,255,0.03);
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
 .meal-preview {
@@ -113,6 +113,7 @@
 .meal-form-input,
 .meal-form-textarea,
 .meal-form-select {
+  width: 100%;
   border: 1px solid rgba(245, 240, 232, 0.1);
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.04);
@@ -120,17 +121,71 @@
   padding: 12px 14px;
   font-size: 14px;
   outline: none;
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.meal-form-input::placeholder,
+.meal-form-textarea::placeholder {
+  color: rgba(245, 240, 232, 0.38);
 }
 
 .meal-form-input:focus,
 .meal-form-textarea:focus,
 .meal-form-select:focus {
   border-color: rgba(232, 160, 48, 0.3);
+  background: rgba(255, 255, 255, 0.055);
+  box-shadow: 0 0 0 3px rgba(232, 160, 48, 0.08);
+}
+
+.meal-form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.meal-form-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.meal-form-select option {
+  background-color: #0a0807;
+  color: #f5f0e8;
+}
+
+.meal-form-select option:checked {
+  background-color: #e8a030;
+  color: #0a0807;
+}
+
+.meal-select-content {
+  background: #1a1613;
+  border: 1px solid rgba(232, 160, 48, 0.2);
+  color: #f5f0e8;
+  border-radius: 12px;
+}
+
+[data-radix-select-item] {
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+[data-radix-select-item]:hover {
+  background: rgba(232, 160, 48, 0.1);
+}
+
+[data-state="checked"] {
+  background: rgba(232, 160, 48, 0.15);
 }
 
 .meal-form-message {
   margin: 18px 0 0;
   color: #e8a030;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
 }
 
 .meal-form-actions {
@@ -151,6 +206,151 @@
   text-transform: uppercase;
   letter-spacing: 0.12em;
   cursor: pointer;
+  box-shadow: 0 12px 28px rgba(200, 80, 10, 0.24);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.meal-form-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 34px rgba(200, 80, 10, 0.3);
+}
+
+.meal-form-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.meal-reviews-section {
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(245, 240, 232, 0.08);
+}
+
+.meal-reviews-head {
+  margin-bottom: 18px;
+}
+
+.meal-reviews-eyebrow {
+  margin: 0 0 8px;
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: rgba(232, 160, 48, 0.78);
+}
+
+.meal-reviews-title {
+  margin: 0;
+  font-family: "Playfair Display", serif;
+  font-size: 28px;
+  line-height: 1.1;
+  color: #f5f0e8;
+}
+
+.meal-reviews-subtitle {
+  margin: 10px 0 0;
+  color: rgba(245, 240, 232, 0.62);
+  font-size: 14px;
+}
+
+.meal-reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.meal-review-card {
+  border: 1px solid rgba(245, 240, 232, 0.08);
+  border-radius: 20px;
+  padding: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.018)),
+    rgba(255, 255, 255, 0.02);
+  box-shadow:
+    0 14px 32px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.02);
+}
+
+.meal-review-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.meal-review-user {
+  margin: 0 0 6px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #f5f0e8;
+}
+
+.meal-review-date {
+  margin: 0;
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  color: rgba(245, 240, 232, 0.48);
+}
+
+.meal-review-rating-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.meal-review-rating-value {
+  font-family: "DM Mono", monospace;
+  font-size: 12px;
+  color: #e8a030;
+}
+
+.meal-review-stars {
+  display: flex;
+  gap: 4px;
+}
+
+.meal-review-star-wrap {
+  position: relative;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.meal-review-star-bg {
+  color: rgba(245, 240, 232, 0.2);
+}
+
+.meal-review-star-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  color: #e8a030;
+}
+
+.meal-review-body {
+  border-top: 1px solid rgba(245, 240, 232, 0.06);
+  padding-top: 14px;
+}
+
+.meal-review-comment {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(245, 240, 232, 0.8);
+}
+
+.meal-reviews-empty {
+  border: 1px solid rgba(245, 240, 232, 0.08);
+  border-radius: 18px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.02);
+  color: rgba(245, 240, 232, 0.58);
 }
 
 @media (max-width: 900px) {
@@ -178,5 +378,14 @@
 
   .meal-preview-title {
     font-size: 28px;
+  }
+
+  .meal-reviews-title {
+    font-size: 24px;
+  }
+
+  .meal-review-top {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

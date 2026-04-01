@@ -77,7 +77,7 @@ export const providerService = {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/provider/menu/meals/${id}`,
         {
-          method: "PATCH",
+          method: "PUT",
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -96,7 +96,6 @@ export const providerService = {
     }
   },
 
-
   deleteMeal: async (id: string) => {
     try {
       const token = await getToken();
@@ -110,10 +109,9 @@ export const providerService = {
           },
         }
       );
-
       if (!res.ok) throw new Error("Delete failed");
 
-      return { data: true, error: null };
+      return { data: true, error: null, success: true };
     } catch {
       return { data: false, error: { message: "Delete failed" } };
     }

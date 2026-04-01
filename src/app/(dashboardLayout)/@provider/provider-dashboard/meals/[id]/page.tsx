@@ -6,6 +6,7 @@ import "./meal-details.css";
 import { providerService } from "@/services/provider/provider.service";
 import { Meal } from "@/types/mealsParams";
 import { Category } from "@/types/category";
+import { toast } from "sonner";
 
 
 export default function ProviderMealDetailsPage() {
@@ -17,6 +18,8 @@ export default function ProviderMealDetailsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
+
+  const [mealDelete, setMealDelete] = useState(false);
 
   const [form, setForm] = useState({
     title: "",
@@ -109,6 +112,20 @@ export default function ProviderMealDetailsPage() {
       setMessage(result.error?.message || "Update failed.");
     }
   };
+
+  const handleWantToDelete = async() =>{
+    setMealDelete(true)
+  }
+
+  const handleDelete = async() =>{
+    const result = await providerService.deleteMeal(mealId);
+    if(result.success){
+      toast.success("Meal deleted or marked as unavailable if has active order")
+      setMealDelete(false)
+    }else{
+      toast.error(result.error?.message || "Failed to delete.")
+    }
+  }
 
   if (loading) {
     return <div className="provider-page-message">Loading meal...</div>;
@@ -231,7 +248,24 @@ export default function ProviderMealDetailsPage() {
 
         {message && <p className="meal-form-message">{message}</p>}
 
-        <div className="meal-form-actions">
+        <div className="meal-form-actions flex gap-4">
+          
+          <button
+            type="button"
+            onClick={handleWantToDelete}
+            hidden={mealDelete}
+            className="text-bold text-[#e8a030]"
+          >
+            Want to delete this meal? Click Here
+          </button>
+          <button
+            type="button"
+            hidden = {!mealDelete}
+            onClick={handleDelete}
+            className="meal-form-button"
+          >
+            Delete
+          </button>
           <button
             type="button"
             onClick={handleSubmit}
@@ -241,7 +275,89 @@ export default function ProviderMealDetailsPage() {
             {saving ? "Saving..." : "Save Changes"}
           </button>
         </div>
+
+        <div className="meal-reviews-section">
+          <div className="meal-reviews-head">
+            <p className="meal-reviews-eyebrow">Customer Feedback</p>
+            <h2 className="meal-reviews-title">Reviews Received</h2>
+            <p className="meal-reviews-subtitle">
+              {meal.reviews?.length || 0} reviews on this meal
+            </p>
+          </div>
+
+          {meal.reviews && meal.reviews.length > 0 ? (
+            <div className="meal-reviews-list">
+              {meal.reviews.map((review) => (
+                <div key={review.id} className="meal-review-card">
+                  <div className="meal-review-top">
+                    <div>
+                      <p className="meal-review-user">
+                        {review.customer?.name || "Customer"}
+                      </p>
+                      <p className="meal-review-date">
+                        {formatDate(review.createdAt)}
+                      </p>
+                    </div>
+
+                    <div className="meal-review-rating-box">
+                      {renderStars(review.rating)}
+                      <span className="meal-review-rating-value">
+                        {review.rating.toFixed(1)}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="meal-review-body">
+                    <p className="meal-review-comment">
+                      {review.comment || "No written comment added."}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="meal-reviews-empty">
+              No reviews have been submitted for this meal yet.
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
+}
+
+
+function renderStars(rating: number) {
+  return (
+    <div className="meal-review-stars">
+      {[1, 2, 3, 4, 5].map((star) => {
+        let fill = 0;
+
+        if (rating >= star) fill = 100;
+        else if (rating >= star - 0.5) fill = 50;
+
+        return (
+          <div key={star} className="meal-review-star-wrap">
+            <div className="meal-review-star-bg">★</div>
+            <div
+              className="meal-review-star-fill"
+              style={{ width: `${fill}%` }}
+            >
+              ★
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function formatDate(dateString: string) {
+  return new Date(dateString).toLocaleString("en-BD", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
