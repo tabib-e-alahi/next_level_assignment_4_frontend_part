@@ -1,8 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowUpRight, Heart, ShoppingBag, Star } from "lucide-react"
+import { ArrowUpRight, Heart, Star } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { Meal } from "@/types/mealsParams"
 import AddToCartButton from "@/components/ui/shared/AddToCartButton"
@@ -17,7 +16,7 @@ export default function MealCard({ meal }: { meal: Meal }) {
         meal.reviews.length
       ).toFixed(1)
       : null
-
+  console.log(avgRating);
   return (
     <article className={`meal-card ${!meal.isAvailable ? "unavailable" : ""}`}>
       <Link href={`/meals/${meal.id}`} className="block" tabIndex={-1}>

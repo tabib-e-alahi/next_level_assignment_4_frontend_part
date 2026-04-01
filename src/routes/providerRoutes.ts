@@ -1,15 +1,11 @@
-import { ClipboardList, LayoutDashboard, MessageSquareQuote, Settings, ShoppingBag, Users, UtensilsCrossed } from "lucide-react";
+import {  LayoutDashboard, ShoppingBag, Users, UtensilsCrossed } from "lucide-react";
 
 export const providerRoutes =
 {
   title: "Provider Dashboard",
   navItems: [
-    { label: "Profile", href: "/dashboard", icon: LayoutDashboard },
-    { label: "Menu", href: "/dashboard/menu", icon: UtensilsCrossed, badge: "12" },
-    { label: "Orders", href: "/dashboard/orders", icon: ShoppingBag, badge: "08" },
-    { label: "Reservations", href: "/dashboard/reservations", icon: ClipboardList },
-    { label: "Customers", href: "/dashboard/customers", icon: Users },
-    { label: "Reviews", href: "/dashboard/reviews", icon: MessageSquareQuote, badge: "New" },
-    { label: "Settings", href: "/dashboard/settings", icon: Settings },
+    { label: "Profile", href: "/provider-dashboard/profile", icon: Users },
+    { label: "Menu", href: "/provider-dashboard/meals", icon: UtensilsCrossed },
+    { label: "Orders", href: "/provider-dashboard/orders", icon: ShoppingBag, },
   ]
 }

@@ -1,0 +1,59 @@
+.provider-page {
+  padding: 28px;
+  color: #f5f0e8;
+  background: #0a0807;
+}
+
+.provider-title {
+  font-family: "Playfair Display", serif;
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.provider-card {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.provider-input {
+  padding: 10px;
+  border-radius: 10px;
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: white;
+}
+
+.provider-btn {
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #c8500a, #e8a030);
+  border: none;
+  cursor: pointer;
+  color: #000;
+}
+
+.provider-btn.danger {
+  background: #ff4d4f;
+  color: white;
+}
+
+.provider-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.provider-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255,255,255,0.04);
+  padding: 14px;
+  border-radius: 14px;
+}
+
+.provider-actions {
+  display: flex;
+  gap: 10px;
+}

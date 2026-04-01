@@ -48,9 +48,9 @@ export function LoginForm() {
 
         const role = res?.data?.user?.role
         if (role === "CUSTOMER")       router.push("/")
-        else if (role === "PROVIDER")  router.push("/provider/dashboard")
+        else if (role === "PROVIDER")  router.push("/provider-dashboard/profile")
       } else {
-        toast.error(res?.message || "Login failed. Please check your credentials and try again.")
+        toast.error(res?.error || res?.message)
       }
     } catch {
       toast.error("Login failed. Please check your credentials and try again.")
