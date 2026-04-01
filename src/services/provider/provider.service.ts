@@ -1,3 +1,4 @@
+import { Category } from "@/types/mealsParams";
 import { getToken } from "../cart/getToken";
 
 export const providerService = {
@@ -6,6 +7,27 @@ export const providerService = {
       const token = await getToken();
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/provider/menu/meals`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          }
+        }
+      );
+
+      const result = await res.json();
+      return { data: result?.data || [], error: null };
+    } catch (err) {
+      return { data: [], error: { message: "Failed to fetch meals" } };
+    }
+  },
+
+  getSingleMeal: async (mealId: string) => {
+    try {
+      const token = await getToken();
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/provider/menu/meals/${mealId}`,
         {
           method: "GET",
           headers: {
@@ -97,7 +119,7 @@ export const providerService = {
     }
   },
 
-//! ----===---------- provider order services -----------------
+  //! ----===---------- provider order services -----------------
   getOrders: async () => {
     try {
       const token = await getToken();
@@ -145,4 +167,28 @@ export const providerService = {
       return { data: null, error: { message: err.message } };
     }
   },
+
+
+  //! ------- catgeories ------------
+  getAllCategories: async (): Promise<Category[]> => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/public/categories`,
+        {
+          next: { revalidate: 10 },
+        }
+      )
+
+      if (!res.ok) {
+        throw new Error("Failed to fetch categories")
+      }
+
+      const result = await res.json()
+
+      return result?.data || []
+    } catch (error) {
+      console.error("Category fetch error:", error)
+      return []
+    }
+  }
 };

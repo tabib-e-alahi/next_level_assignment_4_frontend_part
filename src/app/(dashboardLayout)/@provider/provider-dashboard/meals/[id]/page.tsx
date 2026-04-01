@@ -3,18 +3,16 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import "./meal-details.css";
+import { providerService } from "@/services/provider/provider.service";
+import { Meal } from "@/types/mealsParams";
+import { Category } from "@/types/category";
 
-type Category = {
-  id: string;
-  name: string;
-  slug: string;
-};
 
 export default function ProviderMealDetailsPage() {
   const params = useParams();
-  const mealId = params.mealId as string;
+  const mealId = params.id as string;
 
-  const [meal, setMeal] = useState<ProviderMeal | null>(null);
+  const [meal, setMeal] = useState<Meal | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -35,8 +33,8 @@ export default function ProviderMealDetailsPage() {
       setLoading(true);
 
       const [mealResult, categoryResult] = await Promise.all([
-        providerMealService.getSingleMeal(mealId),
-        categoryService.getAllCategories(),
+        providerService.getSingleMeal(mealId),
+        providerService.getAllCategories(),
       ]);
 
       if (mealResult.data) {
@@ -54,8 +52,8 @@ export default function ProviderMealDetailsPage() {
         });
       }
 
-      if (categoryResult.data) {
-        setCategories(categoryResult.data);
+      if (categoryResult) {
+        setCategories(categoryResult);
       }
 
       setLoading(false);
@@ -92,7 +90,7 @@ export default function ProviderMealDetailsPage() {
       .map((item) => item.trim())
       .filter(Boolean);
 
-    const result = await providerMealService.updateMeal(mealId, {
+    const result = await providerService.updateMeal(mealId, {
       title: form.title,
       description: form.description,
       price: Number(form.price),
