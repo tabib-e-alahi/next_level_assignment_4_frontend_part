@@ -1,4 +1,4 @@
-import {  LayoutDashboard, ShoppingBag, Users, UtensilsCrossed } from "lucide-react";
+import {  Home, LayoutDashboard, Plus, ShoppingBag, Users, UtensilsCrossed } from "lucide-react";
 
 export const providerRoutes =
 {
@@ -7,5 +7,7 @@ export const providerRoutes =
     { label: "Profile", href: "/provider-dashboard/profile", icon: Users },
     { label: "Menu", href: "/provider-dashboard/meals", icon: UtensilsCrossed },
     { label: "Orders", href: "/provider-dashboard/orders", icon: ShoppingBag, },
+    { label: "Add Meal", href: "/provider-dashboard/add-meal", icon: Plus, },
+    { label: "Home", href: "/", icon: Home },
   ]
 }

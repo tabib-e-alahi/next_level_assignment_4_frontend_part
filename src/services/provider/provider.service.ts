@@ -12,7 +12,8 @@ export const providerService = {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
-          }
+          },
+          next: { revalidate: 60 }
         }
       );
 
@@ -61,6 +62,7 @@ export const providerService = {
       );
 
       const result = await res.json();
+      console.log(result);
 
       if (!res.ok) throw new Error(result?.message);
 
