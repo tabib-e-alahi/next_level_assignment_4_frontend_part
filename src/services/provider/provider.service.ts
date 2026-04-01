@@ -2,6 +2,54 @@ import { Category } from "@/types/mealsParams";
 import { getToken } from "../cart/getToken";
 
 export const providerService = {
+  createProviderProfile: async (payload: any) => {
+    try {
+      const token = await getToken();
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/provider/providerProfile`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      const result = await res.json();
+      console.log(result);
+
+      if (!res.ok) throw new Error(result?.message);
+
+      return { data: result.data, error: null };
+    } catch (err: any) {
+      return { data: null, error: { message: err.message } };
+    }
+  },
+  getMyProfile: async () => {
+    try {
+      const token = await getToken();
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/provider/me`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          next: { revalidate: 60 }
+        }
+      );
+
+      const result = await res.json();
+
+      return { data: result?.data || null, error: null };
+    } catch (err) {
+      return { data: [], error: { message: "Failed to fetch profile" } };
+    }
+  },
   getMyMeals: async () => {
     try {
       const token = await getToken();
@@ -120,17 +168,38 @@ export const providerService = {
   },
 
   //! ----===---------- provider order services -----------------
-  getOrders: async () => {
+  getIncomingOrders: async () => {
     try {
       const token = await getToken();
 
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/provider/provider-orders/orders`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/provider/provider-orders/incomingOrders`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
           cache: "no-store",
+        }
+      );
+
+      const result = await res.json();
+
+      return { data: result?.data || [], error: null };
+    } catch {
+      return { data: [], error: { message: "Failed to fetch orders" } };
+    }
+  },
+  getAllOrders: async () => {
+    try {
+      const token = await getToken();
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/provider/provider-orders/all-orders`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          next: { revalidate: 60 },
         }
       );
 
@@ -147,7 +216,7 @@ export const providerService = {
       const token = await getToken();
 
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/provider/orders/${orderId}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/provider/provider-orders/orders/${orderId}`,
         {
           method: "PATCH",
           headers: {

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import "./meals.css";
 import { Meal } from "@/types/mealsParams";
 import { providerService } from "@/services/provider/provider.service";
@@ -11,7 +10,6 @@ import ProviderMealCard from "@/components/modules/dashboard/provider/ProviderMe
 export default function ProviderMealsPage() {
   const [meals, setMeals] = useState<Meal[]>([]);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
 
   useEffect(() => {
     const loadMeals = async () => {

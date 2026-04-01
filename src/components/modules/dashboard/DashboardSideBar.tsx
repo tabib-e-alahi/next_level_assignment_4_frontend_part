@@ -94,7 +94,7 @@ export default function DashboardSideBar({ user }: { user: UserInfo }) {
               >
                 <span className="dsb-nav-indicator" />
 
-                <span className={`dsb-nav-icon-wrap${active ? " active" : ""}`}>
+                <span  className={`d dsb-nav-icon-wrap${active ? " active" : ""}`}>
                   <Icon size={18} />
                 </span>
 
@@ -125,14 +125,6 @@ export default function DashboardSideBar({ user }: { user: UserInfo }) {
 
       {/* Footer */}
       <div className="dsb-footer">
-        <div className="dsb-footer-card">
-          <p className="dsb-footer-card-label">Active panel</p>
-          <p className="dsb-footer-card-title">Overview</p>
-          <p className="dsb-footer-card-sub">
-            Premium dashboard with strong hierarchy.
-          </p>
-        </div>
-
         <button
           type="button"
           className="dsb-signout-btn"
