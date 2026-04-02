@@ -1,15 +1,12 @@
-import { ClipboardList, LayoutDashboard, MessageSquareQuote, Settings, ShoppingBag, Users, UtensilsCrossed } from "lucide-react";
+import { LayoutDashboard, MessageSquareQuote, ShoppingBag, Users } from "lucide-react";
 
 export const adminRoutes =
 {
   title: "Admin Dashboard",
   navItems: [
-    { label: "Profile", href: "/dashboard", icon: LayoutDashboard },
-    { label: "Menu", href: "/dashboard/menu", icon: UtensilsCrossed, badge: "12" },
-    { label: "Orders", href: "/dashboard/orders", icon: ShoppingBag, badge: "08" },
-    { label: "Reservations", href: "/dashboard/reservations", icon: ClipboardList },
-    { label: "Customers", href: "/dashboard/customers", icon: Users },
-    { label: "Reviews", href: "/dashboard/reviews", icon: MessageSquareQuote, badge: "New" },
-    { label: "Settings", href: "/dashboard/settings", icon: Settings },
+    { label: "Profile", href: "/admin-dashboard/profile", icon: LayoutDashboard },
+    { label: "View All Users", href: "/admin-dashboard/view-users", icon: Users },
+    { label: "Orders", href: "/admin-dashboard/view-orders", icon: ShoppingBag },
+    { label: "Manage Categories", href: "/admin-dashboard/reviews", icon: MessageSquareQuote },
   ]
 }
