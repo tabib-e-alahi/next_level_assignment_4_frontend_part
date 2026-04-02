@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { AdminCustomer, AdminProvider } from "@/types/admin";
+import { AdminCustomer, AdminProvider, UserStatus } from "@/types/admin";
 import { adminService } from "@/services/admin/admin.service";
 import "./users.css";
+import { toast } from "sonner";
 
 function formatDate(dateString: string) {
   return new Date(dateString).toLocaleString("en-BD", {
@@ -45,17 +46,18 @@ export default function AdminUsersPage() {
 
   const handleStatusChange = async (
     userId: string,
-    status: "ACTIVE" | "SUSPENDED"
+    status: UserStatus
   ) => {
+
     setUpdatingUserId(userId);
 
     const result = await adminService.updateUserStatus(userId, status);
-
     if (result.data) {
       setMessage("User status updated successfully.");
       await loadUsers();
     } else {
-      setMessage(result.error?.message || "Failed to update user status.");
+      // setMessage(result.error?.message || "Failed to update user status.");
+      toast.error(result.error?.message || "Failed to update status")
     }
 
     setUpdatingUserId(null);

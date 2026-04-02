@@ -48,9 +48,8 @@ export const adminService = {
       );
 
       const result = await res.json();
-
       if (!res.ok) {
-        throw new Error(result?.message || "Failed to update user status");
+        throw new Error(result?.error || "Failed to update user status");
       }
 
       return {
