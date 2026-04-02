@@ -530,3 +530,54 @@
     font-size: 9px;
   }
 }
+
+.order-cancel-btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 80, 80, 0.9),
+    rgba(200, 30, 30, 0.9)
+  );
+
+  color: #fff;
+  border: 1px solid rgba(255, 120, 120, 0.3);
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+/* Hover only when enabled */
+.order-cancel-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(255, 80, 80, 0.25);
+}
+
+/* Active click */
+.order-cancel-btn:active {
+  transform: scale(0.97);
+}
+
+/* Disabled state */
+.order-cancel-btn.disabled,
+.order-cancel-btn:disabled {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.4);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+  opacity: 0.7;
+}
+
+/* Remove hover effect when disabled */
+.order-cancel-btn.disabled:hover,
+.order-cancel-btn:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}

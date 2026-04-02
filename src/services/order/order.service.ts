@@ -100,4 +100,40 @@ export const orderService = {
       };
     }
   },
+
+  cancelOrder: async function (
+    orderId: string,
+  ) {
+    try {
+      const token = await getToken();
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/customer/orders/cancel/${orderId}`,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const result = await res.json();
+
+      if (!res.ok) {
+        throw new Error(result?.message || "Failed to cancel order");
+      }
+
+      return {
+        data: result?.data || null,
+        error: null,
+      };
+    } catch (err: any) {
+
+      return {
+        data: null,
+        error: { message: err.message || "Failed to cancel order" },
+      };
+    }
+  },
 }

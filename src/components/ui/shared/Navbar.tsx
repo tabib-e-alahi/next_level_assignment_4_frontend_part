@@ -56,6 +56,15 @@ export default function Navbar() {
       : []),
   ];
 
+  const profileRoute = () =>{
+    if(user?.role === "CUSTOMER")
+      return "/customer-dashboard/profile"
+    else if(user?.role === "PROVIDER")
+      return "/provider-dashboard/profile"
+    else
+      return "/admin-dashboard"
+  }
+
   return (
     <header className="nav-root">
       <div className="nav-inner">
@@ -86,7 +95,7 @@ export default function Navbar() {
             <Link href="/cart" className="nav-cart" aria-label="Cart">
               <ShoppingCart size={16} />
             </Link>
-            <Link href="/profile" className="nav-btn-outline">
+            <Link href={profileRoute()} className="nav-btn-outline">
               Profile
             </Link>
             <Button onClick={handleLogOut} className="nav-btn-solid">Logout</Button>
@@ -143,7 +152,7 @@ export default function Navbar() {
               <div className="nav-sheet-actions">
                 {user ? (
                   <>
-                    <Link href="/profile" onClick={() => setOpen(false)}>
+                    <Link href={profileRoute()} onClick={() => setOpen(false)}>
                       <Button className="nav-sheet-btn-outline">Profile</Button>
                     </Link>
                     <Button onClick={handleLogOut} className="nav-sheet-btn-solid">Logout</Button>

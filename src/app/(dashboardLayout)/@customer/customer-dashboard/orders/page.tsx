@@ -52,6 +52,8 @@ export default function OrdersPage() {
     return <div className="orders-page-message">No orders found.</div>;
   }
 
+
+
   return (
     <div className="orders-page">
       <div className="orders-header">
@@ -82,16 +84,23 @@ export default function OrdersPage() {
               <div>{order.paymentMethod}</div>
               <div>{formatDate(order.createdAt)}</div>
               <div>
-                {
-                  order.status === "DELIVERED" ? <p className="text-lime-400 font-bold">Delivered</p>
-                    :
-                    <button
-                      className="orders-action-btn"
-                      onClick={() => setTrackOrder(order)}
-                    >
-                      Track
-                    </button>
-                }
+                {["DELIVERED", "CANCELLED"].includes(order.status) ? (
+                  <p
+                    className={`font-bold ${order.status === "DELIVERED"
+                      ? "text-lime-400"
+                      : "text-red-700"
+                      }`}
+                  >
+                    {order.status}
+                  </p>
+                ) : (
+                  <button
+                    className="orders-action-btn"
+                    onClick={() => setTrackOrder(order)}
+                  >
+                    Track
+                  </button>
+                )}
               </div>
               <div>
                 <button
@@ -119,6 +128,10 @@ export default function OrdersPage() {
     </div>
   );
 }
+const handleOrderCancel = async (orderId: string) => {
+  await orderService.cancelOrder(orderId)
+
+}
 
 function TrackModal({
   order,
@@ -139,7 +152,6 @@ function TrackModal({
         <div className="orders-modal-top">
           <div>
             <p className="orders-modal-eyebrow">Track Order</p>
-            <h2 className="orders-modal-title">{order.id}</h2>
           </div>
           <button className="orders-close-btn" onClick={onClose}>
             ×
@@ -189,6 +201,14 @@ function TrackModal({
             <span>ORDER CANCELLED</span>
           </div>
         )}
+        <button
+          disabled={order.status !== "PLACED"}
+          className={`order-cancel-btn mt-6 ${order.status !== "PLACED" ? "disabled" : ""
+            }`}
+          onClick={() => handleOrderCancel(order.id)}
+        >
+          Cancel Order
+        </button>
       </div>
     </div>
   );
