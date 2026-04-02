@@ -7,6 +7,6 @@ export const adminRoutes =
     { label: "Profile", href: "/admin-dashboard/profile", icon: LayoutDashboard },
     { label: "View All Users", href: "/admin-dashboard/view-users", icon: Users },
     { label: "Orders", href: "/admin-dashboard/view-orders", icon: ShoppingBag },
-    { label: "Manage Categories", href: "/admin-dashboard/reviews", icon: MessageSquareQuote },
+    { label: "Manage Categories", href: "/admin-dashboard/manage-categories", icon: MessageSquareQuote },
   ]
 }

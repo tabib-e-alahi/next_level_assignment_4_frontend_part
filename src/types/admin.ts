@@ -61,3 +61,13 @@ export type UpdateCategory = {
   logo?: string;
 };
 
+
+export type AdminCategory = {
+  id: string;
+  name: string;
+  slug?: string | null;
+  description?: string | null;
+  logo?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
