@@ -1,0 +1,287 @@
+.admin-orders-page {
+  padding: 28px;
+  min-height: 100%;
+  color: #f8f3ed;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(232, 160, 48, 0.14), transparent 30%),
+    radial-gradient(circle at 90% 90%, rgba(200, 80, 10, 0.12), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent),
+    #0a0807;
+}
+
+.admin-orders-header {
+  margin-bottom: 28px;
+}
+
+.admin-orders-eyebrow {
+  margin: 0 0 10px;
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: rgba(232, 160, 48, 0.9);
+}
+
+.admin-orders-title {
+  margin: 0;
+  font-family: "Playfair Display", serif;
+  font-size: 40px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #fffaf3;
+}
+
+.admin-orders-subtitle {
+  margin-top: 10px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  color: rgba(248, 243, 237, 0.7);
+}
+
+.admin-orders-feedback {
+  margin-bottom: 16px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  color: #ffb3b3;
+}
+
+.admin-orders-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.admin-orders-stat-card {
+  padding: 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(232, 160, 48, 0.16);
+  backdrop-filter: blur(12px);
+}
+
+.admin-orders-stat-label {
+  margin: 0 0 10px;
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(232, 160, 48, 0.82);
+}
+
+.admin-orders-stat-value {
+  margin: 0;
+  font-family: "Playfair Display", serif;
+  font-size: 28px;
+  line-height: 1;
+  color: #fffaf3;
+}
+
+.admin-orders-section {
+  margin-bottom: 28px;
+}
+
+.admin-orders-section-head {
+  margin-bottom: 16px;
+}
+
+.admin-orders-section-eyebrow {
+  margin: 0;
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: rgba(232, 160, 48, 0.75);
+}
+
+.admin-orders-section-title {
+  margin: 4px 0 0;
+  font-family: "Playfair Display", serif;
+  font-size: 22px;
+  color: #fdf7f0;
+}
+
+.admin-orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-orders-card {
+  padding: 18px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(232, 160, 48, 0.18);
+  backdrop-filter: blur(12px);
+  transition: all 0.25s ease;
+}
+
+.admin-orders-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(232, 160, 48, 0.32);
+  transform: translateY(-2px);
+}
+
+.admin-orders-card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.admin-orders-card-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-orders-order-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.admin-orders-customer-name {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fffaf3;
+}
+
+.admin-orders-meta-line {
+  margin: 0 0 6px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  color: rgba(248, 243, 237, 0.62);
+}
+
+.admin-orders-meta-line span {
+  color: #f8f3ed;
+}
+
+.admin-orders-card-side {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(110px, 1fr));
+  gap: 10px;
+  min-width: 360px;
+}
+
+.admin-orders-mini-card {
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-orders-mini-label {
+  margin: 0 0 8px;
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(232, 160, 48, 0.78);
+}
+
+.admin-orders-mini-value {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fffaf3;
+}
+
+.admin-orders-mini-value.date {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.admin-orders-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
+  color: #f5efe6;
+}
+
+.admin-orders-badge.pending {
+  background: rgba(232, 160, 48, 0.14);
+  color: #ffd595;
+  border-color: rgba(232, 160, 48, 0.26);
+}
+
+.admin-orders-badge.processing,
+.admin-orders-badge.confirmed {
+  background: rgba(79, 142, 247, 0.14);
+  color: #a9cbff;
+  border-color: rgba(79, 142, 247, 0.26);
+}
+
+.admin-orders-badge.delivered {
+  background: rgba(56, 161, 105, 0.18);
+  color: #7ef2b1;
+  border-color: rgba(126, 242, 177, 0.3);
+}
+
+.admin-orders-badge.cancelled {
+  background: rgba(255, 107, 107, 0.16);
+  color: #ffb3b3;
+  border-color: rgba(255, 155, 155, 0.3);
+}
+
+.admin-orders-empty-card {
+  padding: 18px;
+  border-radius: 12px;
+  text-align: center;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  color: rgba(248, 243, 237, 0.6);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(232, 160, 48, 0.18);
+}
+
+.admin-orders-message {
+  padding: 40px;
+  text-align: center;
+  font-family: "DM Sans", sans-serif;
+  color: rgba(248, 243, 237, 0.6);
+}
+
+@media (max-width: 1100px) {
+  .admin-orders-card-top {
+    flex-direction: column;
+  }
+
+  .admin-orders-card-side {
+    min-width: 0;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-orders-page {
+    padding: 18px;
+  }
+
+  .admin-orders-title {
+    font-size: 30px;
+  }
+
+  .admin-orders-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-orders-card-side {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .admin-orders-stats {
+    grid-template-columns: 1fr;
+  }
+}
