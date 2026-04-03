@@ -4,7 +4,7 @@ export type UserRole = "CUSTOMER" | "PROVIDER";
 export type AdminCustomer = {
   id: string
   name: string
-  phone: string | null
+  phone?: string
   status: UserStatus
   createdAt: string
   updatedAt: string
@@ -17,7 +17,7 @@ export type AdminCustomer = {
 export type AdminProvider = {
   id: string
   name: string
-  phone: string | null
+  phone?: string
   status: UserStatus
   createdAt: string
   updatedAt: string
@@ -29,10 +29,10 @@ export type AdminProvider = {
   };
 };
 
-type AdminUsersResponse = {
-  customers: AdminCustomer[];
-  providers: AdminProvider[];
-};
+// type AdminUsersResponse = {
+//   customers: AdminCustomer[];
+//   providers: AdminProvider[];
+// };
 
 export type AdminOrder = {
   id: string;
@@ -48,11 +48,15 @@ export type AdminOrder = {
 };
 
 export type Category = {
-  name: string;
-  slug?: string;
-  description?: string;
-  logo?: string;
-};
+  id: string
+  name: string
+  slug?: string
+  description?: string 
+  image?: string 
+  logo: string
+  createdAt: string
+  updatedAt: string
+}
 
 export type UpdateCategory = {
   name?: string;
@@ -65,9 +69,9 @@ export type UpdateCategory = {
 export type AdminCategory = {
   id: string;
   name: string;
-  slug?: string | null;
-  description?: string | null;
-  logo?: string | null;
+  slug?: string;
+  description?: string;
+  logo: string;
   createdAt: string;
   updatedAt: string;
 };

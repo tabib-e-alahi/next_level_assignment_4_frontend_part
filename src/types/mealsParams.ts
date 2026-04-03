@@ -11,8 +11,8 @@ export type SearchParams = {
 export type Category = {
   id: string;
   name: string;
-  slug: string;
-  description: string;
+  slug?: string;
+  description?: string;
   logo: string;
   createdAt: string;
   updatedAt: string;

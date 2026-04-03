@@ -7,16 +7,14 @@ import "./nav-footer.css"
 
 const footerLinks = {
   company: [
-    { label: "About",     href: "/about"     },
+    { label: "Home",     href: "/"     },
     { label: "Meals",     href: "/meals"     },
-    { label: "Providers", href: "/providers" },
-    { label: "Contact",   href: "/contact"   },
+    { label: "Providers", href: "/view-all-providers" },
   ],
   account: [
     { label: "Login",    href: "/login"    },
     { label: "Register", href: "/register" },
     { label: "Cart",     href: "/cart"     },
-    { label: "Orders",   href: "/orders"   },
   ],
   legal: [
     { label: "Privacy Policy",    href: "/privacy-policy" },

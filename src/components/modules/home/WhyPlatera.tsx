@@ -1,5 +1,7 @@
 import { Clock3, ShieldCheck, Store, Truck } from "lucide-react"
 import "./home.css"
+import { publicService } from "@/services/public.service"
+import { getCategories } from "@/services/categories/getCategories"
 
 const features = [
   {
@@ -28,7 +30,13 @@ const features = [
   },
 ]
 
-export default function WhyPlatera() {
+export default async function WhyPlatera() {
+  const providers = await publicService.getAllProviders()
+  const totalOrdersCount = await publicService.getTotalOrdersCount()
+  const categories = await getCategories()
+  const totalProviders = providers?.data?.length || 0
+
+
   return (
     <section className="home-section">
       <div className="home-container">
@@ -80,17 +88,17 @@ export default function WhyPlatera() {
 
               <div className="why-stat">
                 <p className="why-stat-label">Active Providers</p>
-                <div className="why-stat-value">120+</div>
+                <div className="why-stat-value">{totalProviders}+</div>
               </div>
 
               <div className="why-stat-grid">
                 <div className="why-stat why-stat-sm">
                   <p className="why-stat-label">Cuisine Types</p>
-                  <div className="why-stat-value">25+</div>
+                  <div className="why-stat-value">{categories?.length || 0}+</div>
                 </div>
                 <div className="why-stat why-stat-sm">
-                  <p className="why-stat-label">Daily Orders</p>
-                  <div className="why-stat-value">500+</div>
+                  <p className="why-stat-label">Total Orders</p>
+                  <div className="why-stat-value">{totalOrdersCount.data}+</div>
                 </div>
               </div>
 

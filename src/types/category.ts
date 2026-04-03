@@ -1,9 +1,12 @@
 export type Category = {
   id: string
   name: string
-  slug: string | null
-  description?: string | null
-  image?: string | null
+  slug?: string
+  description?: string 
+  image?: string 
+  logo: string
+  createdAt: string
+  updatedAt: string
 }
 
 export type GetCategoriesResponse = {

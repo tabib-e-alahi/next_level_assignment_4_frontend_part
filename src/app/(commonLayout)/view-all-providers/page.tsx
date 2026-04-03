@@ -1,42 +1,20 @@
-import Image from "next/image"
-import Link from "next/link"
-import { ArrowUpRight } from "lucide-react"
+import { publicService } from "@/services/public.service";
+import { Provider } from "@/types/provider";
+import "./view-all-providers.css"
 
-import { getProviders } from "@/services/categories/getProviders"
-import "./home.css"
-
-export default async function TopProvidersSection() {
-  const topProviders = await getProviders(5)
-
+export default async function ViewProviderPage() {
+  const providers = await publicService.getAllProviders()
+  console.log(providers.data[0]);
   return (
-    <section className="home-section">
-      <div className="home-container">
+    <div className="admin-page">
+      <div className="admin-header">
+        <h1 className="admin-title">All providers</h1>
+      </div>
 
-        <hr className="sec-rule" />
 
-        <div className="prov-header">
-          <div>
-            <div className="sec-eyebrow">
-              <span className="sec-eyebrow-dot" />
-              Top Providers
-            </div>
-            <h2 className="sec-title">
-              Popular restaurants <em>near you</em>
-            </h2>
-            <p className="sec-sub">
-              Discover trusted restaurants and food providers with great meals,
-              clear details, and live availability.
-            </p>
-          </div>
-
-          <Link href="/view-all-providers" className="sec-link">
-            View all providers
-            <ArrowUpRight size={12} />
-          </Link>
-        </div>
-
+      <section className="admin-user-section">
         <div className="prov-grid">
-          {topProviders.map((provider) => (
+          {providers.data.map((provider: Provider) => (
             <div
               key={provider.id}
               className="prov-card"
@@ -81,8 +59,7 @@ export default async function TopProvidersSection() {
             </div>
           ))}
         </div>
-
-      </div>
-    </section>
-  )
+      </section>
+    </div>
+  );
 }

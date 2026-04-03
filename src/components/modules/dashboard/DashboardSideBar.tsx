@@ -20,8 +20,9 @@ export default function DashboardSideBar({ user }: { user: UserInfo }) {
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
 
+
   let routes: Routes = { title: "", navItems: [] };
-  switch (user.role) {
+  switch (user?.role) {
     case "ADMIN":    routes = adminRoutes;    break;
     case "CUSTOMER": routes = customerRoutes; break;
     case "PROVIDER": routes = providerRoutes; break;
@@ -70,7 +71,7 @@ export default function DashboardSideBar({ user }: { user: UserInfo }) {
               className="dsb-role-badge"
               style={{ color: roleColor[user.role] ?? "#f5f0e8" }}
             >
-              {user.role}
+              {user?.role}
             </span>
           </div>
         </div>

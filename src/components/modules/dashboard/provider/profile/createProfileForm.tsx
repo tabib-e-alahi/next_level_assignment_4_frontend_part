@@ -1,7 +1,7 @@
 "use client";
 
 import { providerService } from "@/services/provider/provider.service";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -17,6 +17,7 @@ type ProfileFormData = {
 };
 
 export default function CreateProfileForm() {
+  const router = useRouter()
   const [formData, setFormData] = useState<ProfileFormData>({
     businessName: "",
     businessSubtitle: "",
@@ -27,7 +28,7 @@ export default function CreateProfileForm() {
     businessLogo: "",
     isOpen: true,
   });
-const router = useRouter()
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
