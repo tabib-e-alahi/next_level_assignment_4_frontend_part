@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { adminService } from "@/services/admin/admin.service";
 import "./admin-dashboard.css";
+import LoadingPage from "@/components/modules/loading/LoadingCompo";
 
 type AdminCustomer = {
   id: string;
@@ -220,7 +221,7 @@ export default function AdminDashboardOverviewPage() {
   }, [categories]);
 
   if (loading) {
-    return <div className="admin-overview-message">Loading dashboard...</div>;
+    return <LoadingPage></LoadingPage>
   }
 
   return (

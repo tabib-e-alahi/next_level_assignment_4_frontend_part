@@ -49,12 +49,7 @@ export default function CreateProfileForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    console.log("Create profile payload:", formData);
-
-    // call your create profile service here
     const result = await providerService.createProviderProfile(formData)
-    console.log(result);
     if(!result.error){
       toast.success("Profile created")
       router.push("/provider-dashboard/profile")

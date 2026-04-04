@@ -28,10 +28,8 @@ const ROLE_BASED_ROUTES: { route: string; roles: Role[] }[] = [
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
-  console.log("Path name : ---", pathname);
 
   const userData = await getUser()
-  console.log("Form proxy-----: ", userData);
 
   const isAuthenticated = !!userData
 
@@ -46,9 +44,6 @@ export async function proxy(request: NextRequest) {
   const matchedRoute = ROLE_BASED_ROUTES.find((routeObj) =>
     pathname.startsWith(routeObj.route)
   )
-
-  console.log(matchedRoute);
-
   if (matchedRoute && isAuthenticated) {
     const isAllowed = matchedRoute!.roles.includes(userRole as Role)
     

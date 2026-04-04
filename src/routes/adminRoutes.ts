@@ -1,4 +1,4 @@
-import { LayoutDashboard, MessageSquareQuote, ShoppingBag, Users } from "lucide-react";
+import { Home, LayoutDashboard, MessageSquareQuote, ShoppingBag, Users } from "lucide-react";
 
 export const adminRoutes =
 {
@@ -8,5 +8,6 @@ export const adminRoutes =
     { label: "View All Users", href: "/admin-dashboard/view-users", icon: Users },
     { label: "Orders", href: "/admin-dashboard/view-orders", icon: ShoppingBag },
     { label: "Manage Categories", href: "/admin-dashboard/manage-categories", icon: MessageSquareQuote },
+    { label: "Home", href: "/", icon: Home },
   ]
 }

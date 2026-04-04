@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { adminService } from "@/services/admin/admin.service";
 import "./view-orders.css";
+import LoadingPage from "@/components/modules/loading/LoadingCompo";
 
 type AdminOrder = {
   id: string;
@@ -87,7 +88,7 @@ export default function AdminOrdersPage() {
   );
 
   if (loading) {
-    return <div className="admin-orders-message">Loading orders...</div>;
+    return <LoadingPage></LoadingPage>
   }
 
   return (

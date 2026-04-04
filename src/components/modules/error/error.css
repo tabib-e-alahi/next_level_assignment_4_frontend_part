@@ -1,0 +1,290 @@
+/* app/error.css */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500&family=DM+Mono:wght@400;500&display=swap');
+
+/* ── Root ── */
+.er-root {
+  position: fixed;
+  inset: 0;
+  background: #0a0807;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  overflow: hidden;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ── Grain ── */
+.er-grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* ── Ambient orbs ── */
+.er-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(90px);
+}
+
+.er-orb-1 {
+  width: 480px;
+  height: 480px;
+  top: -100px;
+  left: -100px;
+  background: radial-gradient(circle, rgba(248, 113, 113, 0.1) 0%, transparent 70%);
+  animation: er-drift 10s ease-in-out infinite alternate;
+}
+
+.er-orb-2 {
+  width: 360px;
+  height: 360px;
+  bottom: -60px;
+  right: -60px;
+  background: radial-gradient(circle, rgba(200, 80, 10, 0.08) 0%, transparent 70%);
+  animation: er-drift 13s ease-in-out infinite alternate-reverse;
+}
+
+/* ── Center ── */
+.er-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  position: relative;
+  z-index: 1;
+  padding: 24px;
+  text-align: center;
+  max-width: 520px;
+  width: 100%;
+  animation: er-fade-up 0.5s ease both;
+}
+
+/* ── Icon ── */
+.er-icon-wrap {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.er-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+}
+
+.er-ring-outer {
+  width: 100px;
+  height: 100px;
+  border-top-color: rgba(248, 113, 113, 0.6);
+  border-right-color: rgba(248, 113, 113, 0.15);
+  animation: er-spin-slow 4s linear infinite;
+}
+
+.er-ring-mid {
+  width: 76px;
+  height: 76px;
+  border-bottom-color: rgba(200, 80, 10, 0.5);
+  border-left-color: rgba(200, 80, 10, 0.1);
+  animation: er-spin-slow 6s linear infinite reverse;
+}
+
+.er-plate {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(248, 113, 113, 0.12), rgba(200, 80, 10, 0.08));
+  border: 1px solid rgba(248, 113, 113, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  animation: er-shake 5s ease-in-out infinite 1s;
+}
+
+.er-emoji {
+  font-size: 22px;
+  display: block;
+  filter: grayscale(0.3);
+}
+
+/* Crack lines on the plate */
+.er-crack {
+  position: absolute;
+  background: rgba(248, 113, 113, 0.5);
+  border-radius: 1px;
+}
+
+.er-crack-1 {
+  width: 1px;
+  height: 28px;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(18deg);
+}
+
+.er-crack-2 {
+  width: 1px;
+  height: 18px;
+  bottom: 6px;
+  left: 40%;
+  transform: translateX(-50%) rotate(-24deg);
+}
+
+/* ── Error code ── */
+.er-code-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.er-code-line {
+  display: block;
+  height: 1px;
+  width: 48px;
+  background: linear-gradient(90deg, transparent, rgba(248, 113, 113, 0.4));
+}
+
+.er-code-line:last-child {
+  background: linear-gradient(90deg, rgba(248, 113, 113, 0.4), transparent);
+}
+
+.er-code {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: rgba(248, 113, 113, 0.7);
+  text-transform: uppercase;
+}
+
+/* ── Text ── */
+.er-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #f5f0e8;
+  margin: 0 0 10px;
+}
+
+.er-title em {
+  color: #f87171;
+  font-style: italic;
+}
+
+.er-subtitle {
+  font-size: 14px;
+  color: rgba(245, 240, 232, 0.5);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Error detail pill */
+.er-detail {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 9px 16px;
+  background: rgba(248, 113, 113, 0.06);
+  border: 1px solid rgba(248, 113, 113, 0.18);
+  border-radius: 8px;
+  max-width: 100%;
+}
+
+.er-detail-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #f87171;
+  flex-shrink: 0;
+}
+
+.er-detail-msg {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: rgba(245, 240, 232, 0.45);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Actions ── */
+.er-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.er-btn {
+  padding: 12px 28px;
+  border-radius: 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+}
+
+.er-btn-primary {
+  background: linear-gradient(135deg, #c8500a, #e8a030);
+  color: #0a0807;
+}
+
+.er-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(200, 80, 10, 0.35);
+}
+
+.er-btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(245, 240, 232, 0.6);
+}
+
+.er-btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #f5f0e8;
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+/* ── Keyframes ── */
+@keyframes er-spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes er-shake {
+  0%, 90%, 100% { transform: rotate(0deg); }
+  92%            { transform: rotate(-4deg); }
+  94%            { transform: rotate(4deg); }
+  96%            { transform: rotate(-3deg); }
+  98%            { transform: rotate(2deg); }
+}
+
+@keyframes er-fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes er-drift {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(24px, 18px); }
+}

@@ -16,10 +16,7 @@ export const orderService = {
           body: JSON.stringify({ deliveryAddress }),
         }
       );
-
       const data = await res.json();
-      console.log(data);
-
       if (!res.ok) {
         throw new Error(data?.message || "Failed to place order.");
       }

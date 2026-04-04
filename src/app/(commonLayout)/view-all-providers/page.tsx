@@ -4,7 +4,6 @@ import "./view-all-providers.css"
 
 export default async function ViewProviderPage() {
   const providers = await publicService.getAllProviders()
-  console.log(providers.data[0]);
   return (
     <div className="admin-page">
       <div className="admin-header">

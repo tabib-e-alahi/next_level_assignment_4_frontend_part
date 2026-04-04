@@ -79,7 +79,6 @@ export const adminService = {
       if (!res.ok) throw new Error("Failed to fetch orders");
 
       const result = await res.json();
-console.log(result.data);
       return {
         data: result?.data || [],
         error: null,

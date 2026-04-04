@@ -5,6 +5,7 @@ import { AdminCustomer, AdminProvider, UserStatus } from "@/types/admin";
 import { adminService } from "@/services/admin/admin.service";
 import "./users.css";
 import { toast } from "sonner";
+import LoadingPage from "@/components/modules/loading/LoadingCompo";
 
 function formatDate(dateString: string) {
   return new Date(dateString).toLocaleString("en-BD", {
@@ -56,7 +57,6 @@ export default function AdminUsersPage() {
       setMessage("User status updated successfully.");
       await loadUsers();
     } else {
-      // setMessage(result.error?.message || "Failed to update user status.");
       toast.error(result.error?.message || "Failed to update status")
     }
 
@@ -68,7 +68,7 @@ export default function AdminUsersPage() {
   }, [activeTab, customers, providers]);
 
   if (loading) {
-    return <div className="admin-page-message">Loading users...</div>;
+    return <LoadingPage></LoadingPage>
   }
 
   return (

@@ -43,7 +43,7 @@ export const mealService = {
       }
 
       const res = await fetch(url.toString(), {
-        cache: "no-store",
+        next: { revalidate: 60 },
       });
 
       if (!res.ok) {

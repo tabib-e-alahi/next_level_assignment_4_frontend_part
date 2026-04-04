@@ -16,7 +16,6 @@ export default function MealCard({ meal }: { meal: Meal }) {
         meal.reviews.length
       ).toFixed(1)
       : null
-  console.log(avgRating);
   return (
     <article className={`meal-card ${!meal.isAvailable ? "unavailable" : ""}`}>
       <Link href={`/meals/${meal.id}`} className="block" tabIndex={-1}>

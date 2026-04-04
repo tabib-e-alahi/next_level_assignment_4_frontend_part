@@ -11,8 +11,6 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 
-// home.css is imported once in Hero (client boundary);
-// for SSC isolation import it here too — Next.js deduplicates at build time
 import "./home.css"
 
 export default async function CategorySection() {

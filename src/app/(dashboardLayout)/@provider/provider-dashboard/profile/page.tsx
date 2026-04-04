@@ -6,7 +6,7 @@ import { providerService } from "@/services/provider/provider.service";
 
 export default async function ProfilePage() {
   const hasProfile = await hasProviderProfile();
-  console.log(hasProfile);
+
   let profile = null;
   try {
     const result = await providerService.getMyProfile();

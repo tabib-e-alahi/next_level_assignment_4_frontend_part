@@ -29,10 +29,6 @@ export type AdminProvider = {
   };
 };
 
-// type AdminUsersResponse = {
-//   customers: AdminCustomer[];
-//   providers: AdminProvider[];
-// };
 
 export type AdminOrder = {
   id: string;

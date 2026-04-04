@@ -45,7 +45,6 @@ export default function DashboardSideBar({ user }: { user: UserInfo }) {
   };
 
   async function handleSignOut() {
-    // Replace with your actual sign-out logic (e.g. next-auth signOut(), cookie clear, etc.)
     await fetch("/api/auth/logout", { method: "POST" }).catch(() => {});
     router.push("/login");
   }

@@ -38,9 +38,7 @@ export function LoginForm() {
   async function onSubmit(data: z.infer<typeof formSchema>) {
     try {
       const payload = { email: data.email, password: data.password }
-
       const res = await loginUser(payload)
-      console.log(res)
 
       if (res?.success) {
         toast.success("Login successful!")
@@ -49,6 +47,7 @@ export function LoginForm() {
         const role = res?.data?.user?.role
         if (role === "CUSTOMER")       router.push("/")
         else if (role === "PROVIDER")  router.push("/provider-dashboard/profile")
+        else if (role === "ADMIN")  router.push("/admin-dashboard")
       } else {
         toast.error(res?.error || res?.message)
       }

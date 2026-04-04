@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import "./reviews.css";
 import { Review } from "@/types/reviews";
 import { reviewService } from "@/services/review.service";
+import LoadingPage from "@/components/modules/loading/LoadingCompo";
 
 export default function ReviewsPage() {
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -29,7 +30,7 @@ export default function ReviewsPage() {
   const hasReviews = useMemo(() => reviews.length > 0, [reviews]);
 
   if (loading) {
-    return <div className="reviews-page-message">Loading reviews...</div>;
+    return <LoadingPage></LoadingPage>
   }
 
   if (!hasReviews) {

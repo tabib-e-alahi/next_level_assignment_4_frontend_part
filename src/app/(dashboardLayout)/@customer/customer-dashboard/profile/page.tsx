@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { profileService } from "@/services/profile/profile.service";
 import "./profile.css";
+import LoadingPage from "@/components/modules/loading/LoadingCompo";
 
 type UserProfile = {
   id: string;
@@ -96,7 +97,7 @@ export default function ProfilePage() {
   };
 
   if (loading) {
-    return <div className="profile-message">Loading profile...</div>;
+    return <LoadingPage></LoadingPage>
   }
 
   if (!user) {

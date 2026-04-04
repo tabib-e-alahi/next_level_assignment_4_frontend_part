@@ -5,6 +5,7 @@ import { adminService } from "@/services/admin/admin.service";
 import "./categories.css";
 import { toast } from "sonner";
 import { AdminCategory } from "@/types/admin";
+import LoadingPage from "@/components/modules/loading/LoadingCompo";
 
 
 
@@ -192,7 +193,7 @@ export default function AdminManageCategoriesPage() {
   );
 
   if (loading) {
-    return <div className="admin-categories-message">Loading categories...</div>;
+    return <LoadingPage></LoadingPage>
   }
 
   return (

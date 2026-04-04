@@ -53,8 +53,6 @@ const formSchema = z.object({
       path: ["confirmPassword"],
 });
 
-// type RegisterFormValues = z.infer<typeof formSchema>
-
 export function RegisterForm() {
       const router = useRouter()
       const form = useForm<z.infer<typeof formSchema>>({
@@ -77,10 +75,7 @@ export function RegisterForm() {
                         password: data.password,
                   }
 
-                  // later replace with real API call
-                  // await registerUser(payload)
                   const res = await registerUser(payload);
-                  console.log(res);
                   if (res?.success) {
                         toast.success("Registration successful! Please login to continue.")
                         form.reset();

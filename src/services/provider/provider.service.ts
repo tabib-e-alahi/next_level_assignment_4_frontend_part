@@ -19,7 +19,6 @@ export const providerService = {
       );
 
       const result = await res.json();
-      console.log(result);
 
       if (!res.ok) throw new Error(result?.message);
 
@@ -108,9 +107,7 @@ export const providerService = {
           body: JSON.stringify(payload),
         }
       );
-
       const result = await res.json();
-      console.log(result);
 
       if (!res.ok) throw new Error(result?.message);
 
